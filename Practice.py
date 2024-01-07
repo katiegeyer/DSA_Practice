@@ -51,3 +51,28 @@ class Solution(object):
 
         # Return the dummy head's next node.
         return dummy_head.next
+
+
+def is_palindrome(x):
+    # Negative numbers are not palindromes
+    if x < 0:
+        return False
+
+    # Copy the original number to a variable
+    original_number = x
+    reversed_number = 0
+
+    # Reverse the number
+    while x > 0:
+        digit = x % 10  # Get the last digit
+        reversed_number = (reversed_number * 10) + digit  # Append the digit
+        x = x // 10  # Remove the last digit
+
+    # Check if the original number and the reversed number are the same
+    return original_number == reversed_number
+
+# Test the function with the provided examples
+test_cases = [121, -121, 10]
+results = {x: is_palindrome(x) for x in test_cases}
+results
+
