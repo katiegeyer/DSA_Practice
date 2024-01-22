@@ -76,3 +76,28 @@ test_cases = [121, -121, 10]
 results = {x: is_palindrome(x) for x in test_cases}
 results
 
+class Solution(object):
+    def lengthOfLongestSubstring(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        char_map = {}
+        left = 0
+        max_length = 0
+
+        for right in range(len(s)):
+            if s[right] in char_map:
+                # Move the left pointer to the right of the same character
+                left = max(left, char_map[s[right]] + 1)
+            # Update the last seen index of the character
+            char_map[s[right]] = right
+            # Update the max length
+            max_length = max(max_length, right - left + 1)
+
+        return max_length
+
+# Example usage
+solution = Solution()
+example_string = "abcabcbb"
+print(solution.lengthOfLongestSubstring(example_string))  # Expected output: 3
