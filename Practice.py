@@ -97,7 +97,7 @@ class Solution(object):
 
         return max_length
 
-# Example 
+# Example
 solution = Solution()
 example_string = "abcabcbb"
 print(solution.lengthOfLongestSubstring(example_string))  # Expected output: 3
@@ -126,3 +126,30 @@ class Solution(object):
 solution = Solution()
 example_roman = "XXVII"
 print(solution.romanToInt(example_roman))  # Expected output: 27
+
+
+
+class Solution(object):
+    def longestCommonPrefix(self, strs):
+        """
+        :type strs: List[str]
+        :rtype: str
+        """
+        if not strs:
+            return ""
+
+        # Start with the first string as the initial prefix
+        prefix = strs[0]
+
+        # Compare the prefix with each string in the array
+        for string in strs[1:]:
+            # Reduce the prefix length until it matches the beginning of the string
+            while string[:len(prefix)] != prefix:
+                prefix = prefix[:-1]
+                # If the prefix is empty, return an empty string
+                if not prefix:
+                    return ""
+
+        return prefix
+
+
