@@ -221,3 +221,26 @@ print(solution.longestCommonPrefix(strs1))  # Output: "fl"
 
 strs2 = ["dog", "racecar", "car"]
 print(solution.longestCommonPrefix(strs2))
+
+class Solution(object):
+    def generateParenthesis(self, n):
+        """
+        :type n: int
+        :rtype: List[str]
+        """
+        def generate(p, left, right, parens=[]):
+            if left: generate(p + '(', left-1, right)
+            if right > left: generate(p + ')', left, right-1)
+            if not right: parens += p,
+            return parens
+        return generate('', n, n)
+
+# Example usage:
+solution = Solution()
+n1 = 3
+print(solution.generateParenthesis(n1))
+# Output: ["((()))","(()())","(())()","()(())","()()()"]
+
+n2 = 1
+print(solution.generateParenthesis(n2))
+# Output: ["()"]
