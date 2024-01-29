@@ -187,3 +187,37 @@ class Solution(object):
 
         # Return the head of the merged list
         return dummy.next
+
+class Solution(object):
+    def longestCommonPrefix(self, strs):
+        """
+        :type strs: List[str]
+        :rtype: str
+        """
+        if not strs:
+            return ""
+
+        # Sort the input list of strings
+        strs.sort()
+
+        # Take the first and last strings (after sorting)
+        first_str = strs[0]
+        last_str = strs[-1]
+
+        common_prefix = []
+        for i in range(len(first_str)):
+            # Compare characters at the same position in the first and last strings
+            if first_str[i] == last_str[i]:
+                common_prefix.append(first_str[i])
+            else:
+                break  # Stop at the first character mismatch
+
+        return ''.join(common_prefix)
+
+# Example usage:
+solution = Solution()
+strs1 = ["flower", "flow", "flight"]
+print(solution.longestCommonPrefix(strs1))  # Output: "fl"
+
+strs2 = ["dog", "racecar", "car"]
+print(solution.longestCommonPrefix(strs2))
