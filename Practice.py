@@ -244,3 +244,37 @@ print(solution.generateParenthesis(n1))
 n2 = 1
 print(solution.generateParenthesis(n2))
 # Output: ["()"]
+
+class Solution(object):
+    def lengthOfLongestSubstring(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        char_map = {}
+        left = 0
+        right = 0
+        ans = 0
+        n = len(s)
+
+        while right < n:
+            if s[right] in char_map:
+                left = max(left, char_map[s[right]] + 1)
+
+            char_map[s[right]] = right
+            ans = max(ans, right - left + 1)
+            right += 1
+
+        return ans
+
+# Create a Solution object
+solution = Solution()
+
+# Ex 1
+print(solution.lengthOfLongestSubstring("abcabcbb"))  # Output: 3
+
+# Ex 2
+print(solution.lengthOfLongestSubstring("bbbbb"))     # Output: 1
+
+# Ex 3
+print(solution.lengthOfLongestSubstring("pwwkew"))    # Output: 3
