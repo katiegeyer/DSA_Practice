@@ -80,3 +80,17 @@ print(b)
 
 a = True
 b = False
+
+
+import arcpy
+
+# Set the workspace (change this to the path of your geodatabase)
+arcpy.env.workspace = "C:/path/to/your/geodatabase.gdb"
+
+# List all feature classes in the geodatabase
+feature_classes = arcpy.ListFeatureClasses()
+
+# Print the names of the feature classes
+print("Feature Classes in the Geodatabase:")
+for fc in feature_classes:
+    print(fc)
