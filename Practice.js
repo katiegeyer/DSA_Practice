@@ -14,3 +14,28 @@ function twoSum(nums, target) {
     return []; // Return an empty array if no pair is found
 }
 
+/**
+ * @param {number} n
+ * @return {string[]}
+ */
+var generateParenthesis = function(n) {
+    const result = [];
+
+    function backtrack(s = '', open = 0, close = 0) {
+        if (s.length === 2 * n) {
+            result.push(s);
+            return;
+        }
+
+        if (open < n) {
+            backtrack(s + '(', open + 1, close);
+        }
+
+        if (close < open) {
+            backtrack(s + ')', open, close + 1);
+        }
+    }
+
+    backtrack();
+    return result;
+};
