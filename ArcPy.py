@@ -93,3 +93,27 @@ b = False
 print("Feature Classes in the Geodatabase:")
 for fc in feature_classes:
     print(fc)
+
+import arcpy
+
+# Set the workspace (change this to your local path)
+arcpy.env.workspace = "C:/data/yourgeodatabase.gdb"
+
+# List all feature classes in the geodatabase
+feature_classes = arcpy.ListFeatureClasses()
+
+# Loop through each feature class
+for fc in feature_classes:
+    print(f"Processing {fc}...")
+
+    # Add a new field named 'NewField' of type 'DOUBLE'
+    arcpy.AddField_management(fc, "NewField", "DOUBLE")
+
+    # Calculate the new field values based on some condition or formula
+    # Here, we'll simply copy values from an existing field named 'ExistingField'
+    # You can replace this with your own logic
+    arcpy.CalculateField_management(fc, "NewField", "!ExistingField!", "PYTHON3")
+
+    print(f"Added and calculated 'NewField' in {fc}")
+
+print("Processing completed.")
