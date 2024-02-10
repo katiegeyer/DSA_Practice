@@ -299,3 +299,39 @@ class Solution(object):
             maxLength = max(maxLength, end - start + 1)
 
         return maxLength
+
+
+def intToRoman(num):
+    """
+    :type num: int
+    :rtype: str
+    """
+    # Map of roman numerals
+    val = [
+        1000, 900, 500, 400,
+        100, 90, 50, 40,
+        10, 9, 5, 4,
+        1
+        ]
+    syms = [
+        "M", "CM", "D", "CD",
+        "C", "XC", "L", "XL",
+        "X", "IX", "V", "IV",
+        "I"
+        ]
+
+    roman_num = ''
+    i = 0
+    while num > 0:
+        for _ in range(num // val[i]):
+            roman_num += syms[i]
+            num -= val[i]
+        i += 1
+    return roman_num
+
+# Test the function with the given examples
+example1 = intToRoman(3)  # Should return "III"
+example2 = intToRoman(58)  # Should return "LVIII"
+example3 = intToRoman(1994)  # Should return "MCMXCIV"
+
+example1, example2, example3
