@@ -278,3 +278,24 @@ print(solution.lengthOfLongestSubstring("bbbbb"))     # Output: 1
 
 # Ex 3
 print(solution.lengthOfLongestSubstring("pwwkew"))    # Output: 3
+
+class Solution(object):
+    def lengthOfLongestSubstring(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        charIndexMap = {}
+        start = 0
+        maxLength = 0
+
+        for end in range(len(s)):
+            if s[end] in charIndexMap:
+                # Move the start pointer. Avoid moving backward.
+                start = max(start, charIndexMap[s[end]] + 1)
+            # Update the last seen index of the character.
+            charIndexMap[s[end]] = end
+            # Calculate the length of the current window.
+            maxLength = max(maxLength, end - start + 1)
+
+        return maxLength
