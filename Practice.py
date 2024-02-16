@@ -400,3 +400,21 @@ example2 = threeSum([0,1,1])  # Should return []
 example3 = threeSum([0,0,0])  # Should return [[0,0,0]]
 
 example1, example2, example3
+
+import math
+
+# Given values
+F = 80  # magnitude of the force in lb
+alpha = math.radians(60)  # alpha angle in radians
+beta = math.radians(45)  # beta angle in radians
+
+# Calculating the cosine of gamma using the trigonometric identity
+cos_gamma_squared = 1 - (math.cos(alpha)**2 + math.cos(beta)**2)
+gamma = math.acos(math.sqrt(cos_gamma_squared))  # gamma angle in radians
+
+# Now calculating the components of the force F
+F_x = F * math.cos(alpha)
+F_y = F * math.cos(beta)
+F_z = F * math.cos(gamma)
+
+F_x, F_y, F_z, math.degrees(gamma)  # also converting gamma back to degrees for reference
