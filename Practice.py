@@ -418,3 +418,27 @@ F_y = F * math.cos(beta)
 F_z = F * math.cos(gamma)
 
 F_x, F_y, F_z, math.degrees(gamma)  # also converting gamma back to degrees for reference
+
+# Correcting the components of F1 using the 3-4-5 triangle ratios
+F1_x = -F1 * (3/5)  # x component is negative since it's along the negative x-axis
+F1_z = F1 * (4/5)   # z component is positive
+
+# Summing up the components to get the resultant force components again
+R_x = F1_x
+R_y = F2_y  # Previously calculated
+R_z = F1_z + F2_z + F3_z  # Summing up all the z components
+
+# Magnitude of the resultant force
+R_magnitude = np.sqrt(R_x**2 + R_y**2 + R_z**2)
+
+# Direction angles of the resultant force (in radians)
+alpha = np.arccos(R_x / R_magnitude) if R_magnitude != 0 else 0
+beta = np.arccos(R_y / R_magnitude) if R_magnitude != 0 else 0
+gamma = np.arccos(R_z / R_magnitude) if R_magnitude != 0 else 0
+
+# Converting angles to degrees
+alpha_degrees = np.degrees(alpha)
+beta_degrees = np.degrees(beta)
+gamma_degrees = np.degrees(gamma)
+
+(R_x, R_y, R_z, R_magnitude), (alpha_degrees, beta_degrees, gamma_degrees)
