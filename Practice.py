@@ -442,3 +442,45 @@ beta_degrees = np.degrees(beta)
 gamma_degrees = np.degrees(gamma)
 
 (R_x, R_y, R_z, R_magnitude), (alpha_degrees, beta_degrees, gamma_degrees)
+
+def divide(dividend, divisor):
+    # Constants for the 32-bit signed integer range
+    INT_MAX = 2**31 - 1
+    INT_MIN = -2**31
+
+    # Handle overflow cases
+    if dividend == INT_MIN and divisor == -1:
+        return INT_MAX
+    if dividend == INT_MIN and divisor == 1:
+        return INT_MIN
+
+    # Determine the sign of the quotient
+    negative = (dividend < 0) != (divisor < 0)
+
+    # Work with positive numbers to avoid negative overflow issues
+    dividend, divisor = abs(dividend), abs(divisor)
+
+    # Perform the division using bit shifting
+    quotient = 0
+    the_sum = divisor
+    multiple = 1
+    while dividend >= divisor:
+        if dividend >= the_sum:
+            dividend -= the_sum
+            quotient += multiple
+            the_sum <<= 1
+            multiple <<= 1
+        else:
+            the_sum >>= 1
+            multiple >>= 1
+
+    if negative:
+        quotient = -quotient
+
+    return min(max(INT_MIN, quotient), INT_MAX)
+
+# Example 1
+print(divide(10, 3))  # Output: 3
+
+# Example 2
+print(divide(7, -3))  # Output: -2
