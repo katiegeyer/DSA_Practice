@@ -85,3 +85,17 @@ console.log(divide(10, 3));  // Output: 3
 // Example 2
 console.log(divide(7, -3));  // Output: -2
 
+document.addEventListener('DOMContentLoaded', function() {
+    // This function runs when the DOM is fully loaded.
+
+    // Get references to the DOM elements.
+    const textElement = document.getElementById('textElement');
+    const changeTextButton = document.getElementById('changeTextButton');
+
+    // Add an event listener to the button for the 'click' event.
+    changeTextButton.addEventListener('click', function() {
+        // Change the text and color of the paragraph element.
+        textElement.textContent = 'The text has been changed!';
+        textElement.style.color = 'blue';
+    });
+});
