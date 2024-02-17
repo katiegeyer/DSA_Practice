@@ -506,3 +506,23 @@ def merge_intervals(intervals):
 # Example usage
 intervals = [[1,3],[2,6],[8,10],[15,18]]
 print(merge_intervals(intervals))
+
+import random
+
+def generate_story():
+    characters = ['a pirate', 'an astronaut', 'a wizard', 'a dragon', 'a robot']
+    settings = ['in outer space', 'at the sea', 'in a magical kingdom', 'in a futuristic city', 'in a haunted house']
+    problems = ['lost a treasure', 'forgot the way back home', 'cast a wrong spell', 'ran out of fuel', 'lost its memory']
+    solutions = ['finds a map', 'meets a new friend who helps out', 'discovers a magical artifact', 'finds a renewable energy source', 'recovers its backup data']
+
+    character = random.choice(characters)
+    setting = random.choice(settings)
+    problem = random.choice(problems)
+    solution = random.choice(solutions)
+
+    story = f"Once upon a time, {character} was {setting}. But then, they {problem}. Luckily, {character} {solution}."
+
+    return story
+
+# Generate and print the story
+print(generate_story())
