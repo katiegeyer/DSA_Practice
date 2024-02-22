@@ -3,6 +3,11 @@
 #     def __init__(self, val=0, next=None):
 #         self.val = val
 #         self.next = next
+import time
+import random
+import math
+
+
 class Solution(object):
     def addTwoNumbers(self, l1, l2):
         """
@@ -71,10 +76,12 @@ def is_palindrome(x):
     # Check if the original number and the reversed number are the same
     return original_number == reversed_number
 
+
 # Test the function with the provided examples
 test_cases = [121, -121, 10]
 results = {x: is_palindrome(x) for x in test_cases}
 results
+
 
 class Solution(object):
     def lengthOfLongestSubstring(self, s):
@@ -97,10 +104,12 @@ class Solution(object):
 
         return max_length
 
+
 # Example
 solution = Solution()
 example_string = "abcabcbb"
 print(solution.lengthOfLongestSubstring(example_string))  # Expected output: 3
+
 
 class Solution(object):
     def romanToInt(self, s):
@@ -108,7 +117,8 @@ class Solution(object):
         :type s: str
         :rtype: int
         """
-        roman_values = {'I': 1, 'V': 5, 'X': 10, 'L': 50, 'C': 100, 'D': 500, 'M': 1000}
+        roman_values = {'I': 1, 'V': 5, 'X': 10,
+                        'L': 50, 'C': 100, 'D': 500, 'M': 1000}
         total = 0
         prev_value = 0
 
@@ -122,11 +132,11 @@ class Solution(object):
 
         return total
 
+
 # Example
 solution = Solution()
 example_roman = "XXVII"
 print(solution.romanToInt(example_roman))  # Expected output: 27
-
 
 
 class Solution(object):
@@ -158,6 +168,7 @@ class ListNode(object):
         self.val = val
         self.next = next
 
+
 class Solution(object):
     def mergeTwoLists(self, list1, list2):
         """
@@ -188,6 +199,7 @@ class Solution(object):
         # Return the head of the merged list
         return dummy.next
 
+
 class Solution(object):
     def longestCommonPrefix(self, strs):
         """
@@ -214,6 +226,7 @@ class Solution(object):
 
         return ''.join(common_prefix)
 
+
 # Example usage:
 solution = Solution()
 strs1 = ["flower", "flow", "flight"]
@@ -222,6 +235,7 @@ print(solution.longestCommonPrefix(strs1))  # Output: "fl"
 strs2 = ["dog", "racecar", "car"]
 print(solution.longestCommonPrefix(strs2))
 
+
 class Solution(object):
     def generateParenthesis(self, n):
         """
@@ -229,11 +243,15 @@ class Solution(object):
         :rtype: List[str]
         """
         def generate(p, left, right, parens=[]):
-            if left: generate(p + '(', left-1, right)
-            if right > left: generate(p + ')', left, right-1)
-            if not right: parens += p,
+            if left:
+                generate(p + '(', left-1, right)
+            if right > left:
+                generate(p + ')', left, right-1)
+            if not right:
+                parens += p,
             return parens
         return generate('', n, n)
+
 
 # Example usage:
 solution = Solution()
@@ -244,6 +262,7 @@ print(solution.generateParenthesis(n1))
 n2 = 1
 print(solution.generateParenthesis(n2))
 # Output: ["()"]
+
 
 class Solution(object):
     def lengthOfLongestSubstring(self, s):
@@ -267,6 +286,7 @@ class Solution(object):
 
         return ans
 
+
 # Create a Solution object
 solution = Solution()
 
@@ -278,6 +298,7 @@ print(solution.lengthOfLongestSubstring("bbbbb"))     # Output: 1
 
 # Ex 3
 print(solution.lengthOfLongestSubstring("pwwkew"))    # Output: 3
+
 
 class Solution(object):
     def lengthOfLongestSubstring(self, s):
@@ -312,13 +333,13 @@ def intToRoman(num):
         100, 90, 50, 40,
         10, 9, 5, 4,
         1
-        ]
+    ]
     syms = [
         "M", "CM", "D", "CD",
         "C", "XC", "L", "XL",
         "X", "IX", "V", "IV",
         "I"
-        ]
+    ]
 
     roman_num = ''
     i = 0
@@ -328,6 +349,7 @@ def intToRoman(num):
             num -= val[i]
         i += 1
     return roman_num
+
 
 # Test the function with the given examples
 example1 = intToRoman(3)  # Should return "III"
@@ -394,14 +416,15 @@ def threeSum(nums):
 
     return res
 
+
 # Test the function with the given examples
-example1 = threeSum([-1,0,1,2,-1,-4])  # Should return [[-1,-1,2],[-1,0,1]]
-example2 = threeSum([0,1,1])  # Should return []
-example3 = threeSum([0,0,0])  # Should return [[0,0,0]]
+# Should return [[-1,-1,2],[-1,0,1]]
+example1 = threeSum([-1, 0, 1, 2, -1, -4])
+example2 = threeSum([0, 1, 1])  # Should return []
+example3 = threeSum([0, 0, 0])  # Should return [[0,0,0]]
 
 example1, example2, example3
 
-import math
 
 # Given values
 F = 80  # magnitude of the force in lb
@@ -417,10 +440,12 @@ F_x = F * math.cos(alpha)
 F_y = F * math.cos(beta)
 F_z = F * math.cos(gamma)
 
-F_x, F_y, F_z, math.degrees(gamma)  # also converting gamma back to degrees for reference
+# also converting gamma back to degrees for reference
+F_x, F_y, F_z, math.degrees(gamma)
 
 # Correcting the components of F1 using the 3-4-5 triangle ratios
-F1_x = -F1 * (3/5)  # x component is negative since it's along the negative x-axis
+# x component is negative since it's along the negative x-axis
+F1_x = -F1 * (3/5)
 F1_z = F1 * (4/5)   # z component is positive
 
 # Summing up the components to get the resultant force components again
@@ -442,6 +467,7 @@ beta_degrees = np.degrees(beta)
 gamma_degrees = np.degrees(gamma)
 
 (R_x, R_y, R_z, R_magnitude), (alpha_degrees, beta_degrees, gamma_degrees)
+
 
 def divide(dividend, divisor):
     # Constants for the 32-bit signed integer range
@@ -479,11 +505,13 @@ def divide(dividend, divisor):
 
     return min(max(INT_MIN, quotient), INT_MAX)
 
+
 # Example 1
 print(divide(10, 3))  # Output: 3
 
 # Example 2
 print(divide(7, -3))  # Output: -2
+
 
 def merge_intervals(intervals):
     # Sort the intervals by their start times
@@ -503,17 +531,21 @@ def merge_intervals(intervals):
 
     return merged
 
+
 # Example usage
-intervals = [[1,3],[2,6],[8,10],[15,18]]
+intervals = [[1, 3], [2, 6], [8, 10], [15, 18]]
 print(merge_intervals(intervals))
 
-import random
 
 def generate_story():
-    characters = ['a pirate', 'an astronaut', 'a wizard', 'a dragon', 'a robot']
-    settings = ['in outer space', 'at the sea', 'in a magical kingdom', 'in a futuristic city', 'in a haunted house']
-    problems = ['lost a treasure', 'forgot the way back home', 'cast a wrong spell', 'ran out of fuel', 'lost its memory']
-    solutions = ['finds a map', 'meets a new friend who helps out', 'discovers a magical artifact', 'finds a renewable energy source', 'recovers its backup data']
+    characters = ['a pirate', 'an astronaut',
+                  'a wizard', 'a dragon', 'a robot']
+    settings = ['in outer space', 'at the sea', 'in a magical kingdom',
+                'in a futuristic city', 'in a haunted house']
+    problems = ['lost a treasure', 'forgot the way back home',
+                'cast a wrong spell', 'ran out of fuel', 'lost its memory']
+    solutions = ['finds a map', 'meets a new friend who helps out', 'discovers a magical artifact',
+                 'finds a renewable energy source', 'recovers its backup data']
 
     character = random.choice(characters)
     setting = random.choice(settings)
@@ -524,5 +556,23 @@ def generate_story():
 
     return story
 
+
 # Generate and print the story
 print(generate_story())
+
+
+def rocket_ship():
+    print("3...")
+    time.sleep(1)
+    print("2...")
+    time.sleep(1)
+    print("1...")
+    time.sleep(1)
+    print("💥💥💥")
+    print("🚀🚀🚀🚀🚀")
+    print("🌎✨🌟🌠")
+    print("🌌🌌🌌🌌🌌")
+    print("Blast Off!")
+
+
+rocket_ship()
