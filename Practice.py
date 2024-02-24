@@ -577,7 +577,6 @@ def rocket_ship():
 
 rocket_ship()
 
-import random
 
 def magic_8_ball():
     responses = [
@@ -607,7 +606,9 @@ def magic_8_ball():
     print("Thinking...")
     print(random.choice(responses))
 
+
 magic_8_ball()
+
 
 def numUniqueEmails(emails):
     unique_emails = set()
@@ -624,9 +625,12 @@ def numUniqueEmails(emails):
 
     return len(unique_emails)
 
+
 # Example usage
-emails = ["test.email+alex@leetcode.com", "test.e.mail+bob.cathy@leetcode.com", "testemail+david@lee.tcode.com"]
+emails = ["test.email+alex@leetcode.com",
+          "test.e.mail+bob.cathy@leetcode.com", "testemail+david@lee.tcode.com"]
 print(numUniqueEmails(emails))
+
 
 def two_sum(nums, target):
     """
@@ -650,7 +654,37 @@ def two_sum(nums, target):
         # Otherwise, add the current number's index to the dictionary.
         num_map[num] = i
 
+
 # Example usage
 nums = [2, 7, 11, 15]
 target = 9
 print(two_sum(nums, target))
+
+
+def reverse_integer(x):
+    """
+    :type x: int
+    :rtype: int
+    """
+    # Handle negative numbers by storing the sign and working with the absolute value
+    sign = -1 if x < 0 else 1
+    x = abs(x)
+
+    # Reverse the integer
+    reversed_x = 0
+    while x != 0:
+        pop = x % 10
+        x //= 10
+        reversed_x = reversed_x * 10 + pop
+
+    # Check for overflow and return 0 if it overflows
+    if reversed_x > 2**31 - 1 or reversed_x < -2**31:
+        return 0
+
+    return sign * reversed_x
+
+
+# Example usage
+print(reverse_integer(123))  # Outputs: 321
+print(reverse_integer(-123))  # Outputs: -321
+print(reverse_integer(120))  # Outputs: 21
