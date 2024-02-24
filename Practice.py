@@ -627,3 +627,30 @@ def numUniqueEmails(emails):
 # Example usage
 emails = ["test.email+alex@leetcode.com", "test.e.mail+bob.cathy@leetcode.com", "testemail+david@lee.tcode.com"]
 print(numUniqueEmails(emails))
+
+def two_sum(nums, target):
+    """
+    :type nums: List[int]
+    :type target: int
+    :rtype: List[int]
+    """
+    # Create a dictionary to hold value:index pairs.
+    num_map = {}
+
+    # Loop through the array of numbers.
+    for i, num in enumerate(nums):
+        # Calculate the complement of the current number.
+        complement = target - num
+
+        # Check if the complement is in our dictionary.
+        if complement in num_map:
+            # If it is, return the current index and the complement's index.
+            return [num_map[complement], i]
+
+        # Otherwise, add the current number's index to the dictionary.
+        num_map[num] = i
+
+# Example usage
+nums = [2, 7, 11, 15]
+target = 9
+print(two_sum(nums, target))
