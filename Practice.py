@@ -608,3 +608,22 @@ def magic_8_ball():
     print(random.choice(responses))
 
 magic_8_ball()
+
+def numUniqueEmails(emails):
+    unique_emails = set()
+
+    for email in emails:
+        local, domain = email.split('@')
+        # Ignore everything after the first '+'
+        if '+' in local:
+            local = local[:local.index('+')]
+        # Remove all periods
+        local = local.replace('.', '')
+        normalized_email = local + '@' + domain
+        unique_emails.add(normalized_email)
+
+    return len(unique_emails)
+
+# Example usage
+emails = ["test.email+alex@leetcode.com", "test.e.mail+bob.cathy@leetcode.com", "testemail+david@lee.tcode.com"]
+print(numUniqueEmails(emails))
