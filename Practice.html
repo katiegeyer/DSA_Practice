@@ -1,29 +1,78 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Random Background Color</title>
 </head>
+
 <body>
 
-<button id="colorButton">Change Background Color!</button>
+    <button id="colorButton">Change Background Color!</button>
 
-<script>
-    // Function to generate a random color
-    function getRandomColor() {
-        var letters = '0123456789ABCDEF';
-        var color = '#';
-        for (var i = 0; i < 6; i++) {
-            color += letters[Math.floor(Math.random() * 16)];
+    <script>
+        // Function to generate a random color
+        function getRandomColor() {
+            var letters = '0123456789ABCDEF';
+            var color = '#';
+            for (var i = 0; i < 6; i++) {
+                color += letters[Math.floor(Math.random() * 16)];
+            }
+            return color;
         }
-        return color;
-    }
 
-    // Add click event listener to the button
-    document.getElementById('colorButton').addEventListener('click', function() {
-        // Change the background color of the body
-        document.body.style.backgroundColor = getRandomColor();
-    });
-</script>
+        // Add click event listener to the button
+        document.getElementById('colorButton').addEventListener('click', function () {
+            // Change the background color of the body
+            document.body.style.backgroundColor = getRandomColor();
+        });
+    </script>
 
 </body>
+
+</html>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Two Sum Problem Solution</title>
+</head>
+
+<body>
+    <h2>Two Sum Problem Solution</h2>
+    <div>
+        <p>Enter an array of numbers (comma-separated):</p>
+        <input type="text" id="nums" placeholder="e.g., 2, 7, 11, 15">
+    </div>
+    <div>
+        <p>Enter the target sum:</p>
+        <input type="number" id="target" placeholder="e.g., 9">
+    </div>
+    <button onclick="findTwoSum()">Find Two Sum</button>
+    <p id="result"></p>
+
+    <script>
+        function twoSum(nums, target) {
+            const numMap = new Map();
+            for (let i = 0; i < nums.length; i++) {
+                const complement = target - nums[i];
+                if (numMap.has(complement)) {
+                    return [numMap.get(complement), i];
+                }
+                numMap.set(nums[i], i);
+            }
+            return null;
+        }
+
+        function findTwoSum() {
+            const numsInput = document.getElementById('nums').value.split(',').map(num => parseInt(num, 10));
+            const target = parseInt(document.getElementById('target').value, 10);
+            const result = twoSum(numsInput, target);
+            document.getElementById('result').textContent = result ? `Indices: ${result.join(', ')}` : 'No two sum solution found.';
+        }
+    </script>
+</body>
+
 </html>
