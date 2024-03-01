@@ -688,3 +688,37 @@ def reverse_integer(x):
 print(reverse_integer(123))  # Outputs: 321
 print(reverse_integer(-123))  # Outputs: -321
 print(reverse_integer(120))  # Outputs: 21
+
+
+def two_sum(nums, target):
+    """
+    Find two numbers in nums that add up to target and return their indices.
+
+    :param nums: List of integers.
+    :param target: Target sum.
+    :return: Indices of the two numbers such that they add up to target.
+    """
+    # Initialize a dictionary to store the value and its index
+    prev_map = {}  # value -> index
+
+    # Iterate over the list of numbers
+    for i, n in enumerate(nums):
+        # Calculate the difference needed to reach the target
+        diff = target - n
+
+        # Check if the difference is already in our map
+        if diff in prev_map:
+            # If found, return the current index and the index of the difference
+            return [prev_map[diff], i]
+
+        # If not found, add the current number and its index to the map
+        prev_map[n] = i
+
+    # If no solution is found, return an empty list (or throw an exception, depending on requirements)
+    return []
+
+
+# Example usage
+nums = [2, 7, 11, 15]
+target = 9
+print(two_sum(nums, target))
