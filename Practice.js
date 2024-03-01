@@ -18,7 +18,7 @@ function twoSum(nums, target) {
  * @param {number} n
  * @return {string[]}
  */
-var generateParenthesis = function(n) {
+var generateParenthesis = function (n) {
     const result = [];
 
     function backtrack(s = '', open = 0, close = 0) {
@@ -40,7 +40,7 @@ var generateParenthesis = function(n) {
     return result;
 };
 
-var divide = function(dividend, divisor) {
+var divide = function (dividend, divisor) {
     // Constants for the 32-bit signed integer range
     const INT_MAX = Math.pow(2, 31) - 1;
     const INT_MIN = Math.pow(-2, 31);
@@ -85,7 +85,7 @@ console.log(divide(10, 3));  // Output: 3
 // Example 2
 console.log(divide(7, -3));  // Output: -2
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     // This function runs when the DOM is fully loaded.
 
     // Get references to the DOM elements.
@@ -93,9 +93,37 @@ document.addEventListener('DOMContentLoaded', function() {
     const changeTextButton = document.getElementById('changeTextButton');
 
     // Add an event listener to the button for the 'click' event.
-    changeTextButton.addEventListener('click', function() {
+    changeTextButton.addEventListener('click', function () {
         // Change the text and color of the paragraph element.
         textElement.textContent = 'The text has been changed!';
         textElement.style.color = 'blue';
     });
 });
+
+function twoSum(nums, target) {
+    // Initialize a map to store the value and its index
+    const numMap = new Map();
+
+    // Iterate over the array
+    for (let i = 0; i < nums.length; i++) {
+        // Calculate the complement by subtracting the current value from the target
+        const complement = target - nums[i];
+
+        // Check if the complement exists in our map
+        if (numMap.has(complement)) {
+            // If found, return an array containing the index of the complement and the current index
+            return [numMap.get(complement), i];
+        }
+
+        // Store the current value and its index in the map
+        numMap.set(nums[i], i);
+    }
+
+    // If no solution is found, throw an error or return null/undefined
+    return null;
+}
+
+// Example usage
+const nums = [2, 7, 11, 15];
+const target = 9;
+console.log(twoSum(nums, target));
