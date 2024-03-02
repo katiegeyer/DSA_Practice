@@ -722,3 +722,62 @@ def two_sum(nums, target):
 nums = [2, 7, 11, 15]
 target = 9
 print(two_sum(nums, target))
+
+
+def rotate_and_sum_array(nums, k):
+    """
+    Rotate the array to the right by k steps and sum the original and rotated arrays.
+
+    :param nums: List of integers (the original array).
+    :param k: Number of steps to rotate the array by.
+    :return: A new array containing the sums of the original and rotated arrays.
+    """
+    # Calculate the rotated array
+    rotated_array = [0] * len(nums)  # Initialize with zeros
+    for i, num in enumerate(nums):
+        rotated_array[(i + k) % len(nums)] = num
+
+    # Sum the original and rotated arrays
+    sum_array = [nums[i] + rotated_array[i] for i in range(len(nums))]
+
+    return sum_array
+
+
+# Example usage
+nums = [1, 2, 3, 4, 5]
+k = 2
+print(rotate_and_sum_array(nums, k))
+# Expected output: [6, 8, 5, 7, 9]
+
+
+def is_happy(n):
+    """
+    Determine if a number is a "happy number".
+
+    A happy number is defined as a number which eventually reaches 1 when replaced by the sum of the square of each digit.
+
+    :param n: Integer, the number to check.
+    :return: Boolean, True if n is a happy number, and False otherwise.
+    """
+    def get_next(number):
+        """
+        Calculate the sum of the squares of the digits of the input number.
+
+        :param number: Integer, the number to process.
+        :return: Integer, the sum of the squares of the digits.
+        """
+        return sum(int(char) ** 2 for char in str(number))
+
+    seen = set()
+    while n != 1 and n not in seen:
+        seen.add(n)
+        n = get_next(n)
+
+    return n == 1
+
+
+# Example usage
+# Expected: True, because 1^2 + 9^2 = 82, 8^2 + 2^2 = 68, 6^2 + 8^2 = 100, and 1^2 + 0^2 + 0^2 = 1.
+print(is_happy(19))
+# Expected: False, because 2 leads to a cycle that doesn't include 1.
+print(is_happy(2))
