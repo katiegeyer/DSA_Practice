@@ -155,3 +155,31 @@ function twoSum(nums, target) {
 const nums = [2, 7, 11, 15];
 const target = 9;
 console.log(twoSum(nums, target)); // Output: [0, 1]
+
+function rotateAndSumArray(nums, k) {
+    // The array that will hold the rotated version of nums
+    let rotatedArray = new Array(nums.length);
+    // The final array that will contain the sum of the original and rotated arrays
+    let sumArray = [];
+
+    // First, rotate the array by k steps
+    for (let i = 0; i < nums.length; i++) {
+        // Calculate the new position for each element after rotation
+        let newPosition = (i + k) % nums.length;
+        // Place each element in its new position in the rotatedArray
+        rotatedArray[newPosition] = nums[i];
+    }
+
+    // Next, sum the original array and the rotated array
+    for (let i = 0; i < nums.length; i++) {
+        sumArray.push(nums[i] + rotatedArray[i]);
+    }
+
+    return sumArray;
+}
+
+// Example usage
+const nums = [1, 2, 3, 4, 5];
+const k = 2;
+console.log(rotateAndSumArray(nums, k));
+// Expected output for the example: [6, 8, 5, 7, 9]
