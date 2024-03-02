@@ -127,3 +127,31 @@ function twoSum(nums, target) {
 const nums = [2, 7, 11, 15];
 const target = 9;
 console.log(twoSum(nums, target));
+
+function twoSum(nums, target) {
+    // Create a map to store numbers and their indices
+    const map = new Map();
+
+    // Iterate through the array of numbers
+    for (let i = 0; i < nums.length; i++) {
+        // Calculate the complement of the current number
+        const complement = target - nums[i];
+
+        // Check if the complement exists in the map
+        if (map.has(complement)) {
+            // If it does, return the current index and the index of the complement
+            return [map.get(complement), i];
+        }
+
+        // If not, add the current number along with its index to the map
+        map.set(nums[i], i);
+    }
+
+    // If no two numbers sum up to the target, return an empty array or a message
+    return [];
+}
+
+// Example usage:
+const nums = [2, 7, 11, 15];
+const target = 9;
+console.log(twoSum(nums, target)); // Output: [0, 1]
