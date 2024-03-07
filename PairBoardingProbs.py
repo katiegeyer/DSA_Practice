@@ -27,3 +27,28 @@ def reverseInteger(x):
 print(reverseInteger(123))  # Output: 321
 print(reverseInteger(-123))  # Output: -321
 print(reverseInteger(120))  # Output: 21
+
+# isvalid pairboarding solution
+
+
+def isValid(s: str) -> bool:
+    stack = []
+    mapping = {")": "(", "}": "{", "]": "["}
+
+    for char in s:
+        if char in mapping:
+            # Pop the topmost element if it matches the mapping, else push a dummy value to ensure mismatch
+            top_element = stack.pop() if stack else '#'
+            if mapping[char] != top_element:
+                return False
+        else:
+            stack.append(char)
+
+    # If the stack is empty, all brackets are properly closed
+    return not stack
+
+
+# Example usages
+print(isValid("()"))     # Output: true
+print(isValid("()[]{}"))  # Output: true
+print(isValid("(]"))     # Output: false
