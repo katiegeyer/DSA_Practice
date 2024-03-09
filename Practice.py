@@ -800,3 +800,25 @@ def fizzBuzzFun(n):
 # Example usage
 n = 15
 print(fizzBuzzFun(n))
+
+
+def merge(intervals):
+    if not intervals:
+        return []
+
+    # Sort intervals based on the start time
+    intervals.sort(key=lambda x: x[0])
+
+    merged = [intervals[0]]
+    for current_start, current_end in intervals[1:]:
+        # Get the end time of the last interval in merged
+        last_end = merged[-1][1]
+
+        # If the current interval overlaps with the last interval in merged, update the end time of the last interval
+        if current_start <= last_end:
+            merged[-1][1] = max(last_end, current_end)
+        else:
+            # Otherwise, add the current interval to merged
+            merged.append([current_start, current_end])
+
+    return merged
