@@ -70,3 +70,31 @@ function reverseList(head) {
 // 1 <= s.length <= 10^4
 // s consists of parentheses only '()[]{}'.
 
+function isValid(s) {
+    // Initialize a stack to keep track of opening brackets
+    const stack = [];
+    // Create a mapping for the parentheses
+    const mapping = {
+        ')': '(',
+        '}': '{',
+        ']': '['
+    };
+
+    for (let char of s) {
+        if (mapping[char]) {
+            // Pop the top element if the stack is not empty
+            // Otherwise assign a dummy value that won't match
+            const topElement = stack.length === 0 ? '#' : stack.pop();
+            // Check if the popped element is the mapping pair of the current character
+            if (topElement !== mapping[char]) {
+                return false;
+            }
+        } else {
+            // If it's an opening bracket, push it onto the stack
+            stack.push(char);
+        }
+    }
+
+    // The stack should be empty at the end for a valid expression
+    return stack.length === 0;
+}
