@@ -52,3 +52,29 @@ def isValid(s: str) -> bool:
 print(isValid("()"))     # Output: true
 print(isValid("()[]{}"))  # Output: true
 print(isValid("(]"))     # Output: false
+
+# commented tech interview pairboarding twoSum
+
+
+def twoSum(nums, target):
+    # Create a dictionary to store the value and its index
+    hash_table = {}
+
+    # Enumerate over the list to get both the index and the value
+    for index, value in enumerate(nums):
+        # Calculate the difference needed to reach the target
+        difference = target - value
+
+        # If the difference is already in the hash table, we have our solution
+        if difference in hash_table:
+            return [hash_table[difference], index]
+
+        # Otherwise, add the value and its index to the hash table
+        hash_table[value] = index
+
+    # If no solution is found, just return an empty list (or raise an exception)
+    return []
+
+
+# Example
+print(twoSum([2, 7, 11, 15], 9))  # Output: [0, 1]
