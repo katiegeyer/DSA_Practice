@@ -78,3 +78,32 @@ def twoSum(nums, target):
 
 # Example
 print(twoSum([2, 7, 11, 15], 9))  # Output: [0, 1]
+
+def isValid(s):
+    # Initialize a stack to keep track of opening brackets
+    stack = []
+    # Create a mapping from closing to opening brackets for easy lookup
+    mapping = {')': '(', '}': '{', ']': '['}
+
+    for char in s:
+        if char in mapping:
+            # Pop the top element if the stack is not empty
+            # Otherwise, use a dummy value that won't match
+            top_element = stack.pop() if stack else '#'
+
+            # Check if the popped element is the mapping pair of the current character
+            if mapping[char] != top_element:
+                return False
+        else:
+            # If it's an opening bracket, push it onto the stack
+            stack.append(char)
+
+    # The stack should be empty at the end for a valid expression
+    return not stack
+
+# Example usage
+print(isValid("()"))      # Output: True
+print(isValid("()[]{}"))  # Output: True
+print(isValid("(]"))      # Output: False
+print(isValid("([)]"))    # Output: False
+print(isValid("{[]}"))    # Output: True
