@@ -865,3 +865,10 @@ def main():
 
 if __name__ == "__main__":
     main()
+def is_palindrome(s):
+    cleaned = ''.join(filter(str.isalnum, s.casefold()))
+    return cleaned == cleaned[::-1]
+
+# Example usage
+test_string = "A man, a plan, a canal: Panama"
+print(f"'{test_string}' is a palindrome: {is_palindrome(test_string)}")
