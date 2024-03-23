@@ -209,3 +209,11 @@ console.log(matrix1); // Output: [[7, 4, 1], [8, 5, 2], [9, 6, 3]]
 const matrix2 = [[5, 1, 9, 11], [2, 4, 8, 10], [13, 3, 6, 7], [15, 14, 12, 16]];
 rotate(matrix2);
 console.log(matrix2); // Output: [[15, 13, 2, 5], [14, 3, 4, 1], [12, 6, 8, 9], [16, 7, 10, 11]]
+function isPalindrome(s) {
+    let cleaned = s.toLowerCase().replace(/[\W_]/g, ''); // \W matches any non-word character, _ is underscore
+    return cleaned === cleaned.split('').reverse().join('');
+}
+
+// Example usage
+const testString = "A man, a plan, a canal: Panama";
+console.log(`'${testString}' is a palindrome: ${isPalindrome(testString)}`);
