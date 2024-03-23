@@ -3,6 +3,7 @@
 #     def __init__(self, val=0, next=None):
 #         self.val = val
 #         self.next = next
+from PIL import Image
 import time
 import random
 import math
@@ -822,3 +823,45 @@ def merge(intervals):
             merged.append([current_start, current_end])
 
     return merged
+
+
+def convert_image_to_ascii(image_path, output_width=100):
+    """Convert an image to ASCII art."""
+    # Define the ASCII characters in a scale of brightness
+    ascii_chars = "@%#*+=-:. "
+
+    # Load the image
+    img = Image.open(image_path)
+
+    # Convert image to grayscale
+    img = img.convert("L")
+
+    # Resize the image based on the output width, while maintaining the aspect ratio
+    width, height = img.size
+    aspect_ratio = height / width
+    new_height = int(output_width * aspect_ratio)
+    img = img.resize((output_width, new_height))
+
+    # Convert each pixel to the corresponding ASCII character
+    pixels = img.getdata()
+    ascii_str = ""
+    for pixel_value in pixels:
+        # Map the pixel value to 0-10
+        ascii_str += ascii_chars[pixel_value // 25]
+    img_ascii = [ascii_str[index:index + output_width]
+                 for index in range(0, len(ascii_str), output_width)]
+
+    return "\n".join(img_ascii)
+
+
+def main():
+    # Path to the image file
+    image_path = "path/to/your/image.jpg"
+
+    # Convert the image to ASCII and print it
+    ascii_art = convert_image_to_ascii(image_path, output_width=100)
+    print(ascii_art)
+
+
+if __name__ == "__main__":
+    main()
