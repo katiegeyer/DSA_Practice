@@ -217,3 +217,13 @@ function isPalindrome(s) {
 // Example usage
 const testString = "A man, a plan, a canal: Panama";
 console.log(`'${testString}' is a palindrome: ${isPalindrome(testString)}`);
+
+function reverseString(s) {
+    return s.split('').reverse().join('');
+}
+
+// Example usage
+const originalString = "Hello, world!";
+const reversedString = reverseString(originalString);
+console.log(`Original: ${originalString}`);
+console.log(`Reversed: ${reversedString}`);
