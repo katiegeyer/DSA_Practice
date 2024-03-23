@@ -865,10 +865,24 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
 def is_palindrome(s):
     cleaned = ''.join(filter(str.isalnum, s.casefold()))
     return cleaned == cleaned[::-1]
 
+
 # Example usage
 test_string = "A man, a plan, a canal: Panama"
 print(f"'{test_string}' is a palindrome: {is_palindrome(test_string)}")
+
+
+def reverse_string(s):
+    return s[::-1]
+
+
+# Example usage
+original_string = "Hello, world!"
+reversed_string = reverse_string(original_string)
+print(f"Original: {original_string}")
+print(f"Reversed: {reversed_string}")
