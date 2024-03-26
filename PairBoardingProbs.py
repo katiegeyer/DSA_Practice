@@ -131,3 +131,24 @@ print(matrix1)  # Output: [[7,4,1],[8,5,2],[9,6,3]]
 matrix2 = [[5, 1, 9, 11], [2, 4, 8, 10], [13, 3, 6, 7], [15, 14, 12, 16]]
 rotate(matrix2)
 print(matrix2)  # Output: [[15,13,2,5],[14,3,4,1],[12,6,8,9],[16,7,10,11]]
+
+
+def find_missing_number(arr):
+    # Calculate the number of elements that should be in the array
+    n = len(arr) + 1
+
+    # Calculate the expected sum of numbers from 1 to n
+    expected_sum = n * (arr[0] + arr[-1]) // 2
+
+    # Calculate the actual sum of elements in the array
+    actual_sum = sum(arr)
+
+    # The difference is the missing number
+    missing_number = expected_sum - actual_sum
+    return missing_number
+
+
+# Example usage
+arr = [3, 7, 1, 2, 8, 4, 5]
+arr.sort()  # Ensure the array is sorted for this method to work
+print("The missing number is:", find_missing_number(arr))
