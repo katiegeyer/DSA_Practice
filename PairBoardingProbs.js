@@ -98,3 +98,24 @@ function isValid(s) {
     // The stack should be empty at the end for a valid expression
     return stack.length === 0;
 }
+
+function findMissingNumber(arr) {
+    // Ensure the array is sorted to correctly calculate the expected sum
+    arr.sort((a, b) => a - b);
+
+    // Calculate the number of elements that should be in the array
+    const n = arr.length + 1;
+
+    // Calculate the expected sum of numbers from 1 to n
+    const expectedSum = n * (arr[0] + arr[arr.length - 1]) / 2;
+
+    // Calculate the actual sum of elements in the array
+    const actualSum = arr.reduce((sum, current) => sum + current, 0);
+
+    // The difference is the missing number
+    return expectedSum - actualSum;
+}
+
+// Example usage
+const arr = [3, 7, 1, 2, 8, 4, 5];
+console.log("The missing number is:", findMissingNumber(arr));
