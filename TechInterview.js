@@ -29,3 +29,24 @@ function isValidBST(root, low = -Infinity, high = Infinity) {
 }
 
 // Example requires building a binary tree
+
+class ListNode {
+    constructor(val = 0, next = null) {
+        this.val = val;
+        this.next = next;
+    }
+}
+
+function reverseLinkedList(head) {
+    let prev = null;
+    let curr = head;
+    while (curr) {
+        const nextTemp = curr.next;
+        curr.next = prev;
+        prev = curr;
+        curr = nextTemp;
+    }
+    return prev;
+}
+
+// Example need to create a linked list
