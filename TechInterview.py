@@ -29,3 +29,20 @@ def merge_intervals(intervals):
 # Example usage
 # Output: [[1,6],[8,10],[15,18]]
 print(merge_intervals([[1, 3], [2, 6], [8, 10], [15, 18]]))
+
+class TreeNode:
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
+
+def is_valid_bst(root, low=float('-inf'), high=float('inf')):
+    if not root:
+        return True
+    if not (low < root.val < high):
+        return False
+    return (is_valid_bst(root.left, low, root.val) and
+            is_valid_bst(root.right, root.val, high))
+
+# Example requires building a binary tree
+
