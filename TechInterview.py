@@ -30,11 +30,13 @@ def merge_intervals(intervals):
 # Output: [[1,6],[8,10],[15,18]]
 print(merge_intervals([[1, 3], [2, 6], [8, 10], [15, 18]]))
 
+
 class TreeNode:
     def __init__(self, val=0, left=None, right=None):
         self.val = val
         self.left = left
         self.right = right
+
 
 def is_valid_bst(root, low=float('-inf'), high=float('inf')):
     if not root:
@@ -46,3 +48,20 @@ def is_valid_bst(root, low=float('-inf'), high=float('inf')):
 
 # Example requires building a binary tree
 
+
+class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
+
+
+def reverse_linked_list(head):
+    prev, curr = None, head
+    while curr:
+        nxt = curr.next
+        curr.next = prev
+        prev = curr
+        curr = nxt
+    return prev
+
+# Example create a linked list
