@@ -116,6 +116,25 @@ function findMissingNumber(arr) {
     return expectedSum - actualSum;
 }
 
-// Example usage
+// Example
 const arr = [3, 7, 1, 2, 8, 4, 5];
 console.log("The missing number is:", findMissingNumber(arr));
+
+//Depth of binary tree with Tyler
+
+class TreeNode {
+    constructor(val = 0, left = null, right = null) {
+        this.val = val;
+        this.left = left;
+        this.right = right;
+    }
+}
+
+function maxDepth(root) {
+    if (!root) return 0;
+    const leftDepth = maxDepth(root.left);
+    const rightDepth = maxDepth(root.right);
+    return Math.max(leftDepth, rightDepth) + 1;
+}
+
+// Example usage requires building a binary tree
