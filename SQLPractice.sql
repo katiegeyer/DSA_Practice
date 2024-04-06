@@ -54,3 +54,23 @@ WHERE
     magical_level >= 7 OR available_on_full_moon = TRUE
 ORDER BY
     magical_level DESC, title;
+
+SELECT
+    e.name AS enclosure_name,
+    e.theme,
+    a.name AS animal_name,
+    a.species,
+    a.active_hours,
+    CASE
+        WHEN a.active_hours = 'Night' THEN 'Under the Moonlight'
+        WHEN a.active_hours = 'Dusk' OR a.active_hours = 'Dawn' THEN 'Twilight Magic'
+        ELSE 'Daylight Enchantment'
+    END AS showcase_time
+FROM
+    animals a
+JOIN
+    enclosures e ON a.enclosure_id = e.enclosure_id
+WHERE
+    e.theme IN ('Mythical Creatures', 'Enchanted Beasts')
+ORDER BY
+    e.name, showcase_time;
