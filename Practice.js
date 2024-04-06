@@ -245,3 +245,9 @@ function makeCounter() {
 let counter = makeCounter();
 console.log(counter()); // 0
 console.log(counter()); // 1
+
+let a;
+console.log(a); // undefined
+
+let b = null;
+console.log(b); // null
