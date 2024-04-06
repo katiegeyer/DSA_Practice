@@ -251,3 +251,9 @@ console.log(a); // undefined
 
 let b = null;
 console.log(b); // null
+
+let obj = { a: 1, b: { c: 2 } };
+let clone = JSON.parse(JSON.stringify(obj));
+
+clone.b.c = 20;
+console.log(obj.b.c); // 2
