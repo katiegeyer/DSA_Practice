@@ -896,3 +896,14 @@ for i in range(1, 101):
         print("Buzz")
     else:
         print(i)
+
+
+def fibonacci(n):
+    fib_sequence = [0, 1]
+    for i in range(2, n):
+        next_element = fib_sequence[i-1] + fib_sequence[i-2]
+        fib_sequence.append(next_element)
+    return fib_sequence[:n]
+
+
+print(fibonacci(10))
