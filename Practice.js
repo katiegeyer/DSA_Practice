@@ -234,3 +234,14 @@ function isArray(value) {
 
 console.log(isArray([1, 2, 3])); // true
 console.log(isArray({ foo: 123 })); // false
+
+function makeCounter() {
+    let count = 0;
+    return function () {
+        return count++;
+    };
+}
+
+let counter = makeCounter();
+console.log(counter()); // 0
+console.log(counter()); // 1
