@@ -227,3 +227,10 @@ const originalString = "Hello, world!";
 const reversedString = reverseString(originalString);
 console.log(`Original: ${originalString}`);
 console.log(`Reversed: ${reversedString}`);
+
+function isArray(value) {
+    return Array.isArray(value);
+}
+
+console.log(isArray([1, 2, 3])); // true
+console.log(isArray({ foo: 123 })); // false
