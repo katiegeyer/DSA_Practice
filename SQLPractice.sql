@@ -37,3 +37,20 @@ SELECT
 FROM
   TopSpenders ts,
   PopularCategory pc;
+
+SELECT
+    title,
+    author,
+    magical_level,
+    CASE
+        WHEN magical_level >= 9 THEN 'Potion of Deep Wisdom'
+        WHEN magical_level BETWEEN 7 AND 8 THEN 'Elixir of Enlightenment'
+        ELSE 'Moonlight Mead'
+    END AS recommended_potion,
+    available_on_full_moon
+FROM
+    books
+WHERE
+    magical_level >= 7 OR available_on_full_moon = TRUE
+ORDER BY
+    magical_level DESC, title;
