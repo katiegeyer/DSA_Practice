@@ -94,3 +94,20 @@ WHERE
     e.theme IN ('Mythical Creatures', 'Enchanted Beasts')
 ORDER BY
     e.name, showcase_time;
+
+SELECT
+    p.name AS planet_name,
+    p.climate,
+    p.distance_from_earth_ly,
+    s.name AS fastest_spaceship,
+    ROUND(p.distance_from_earth_ly / s.speed_ly_per_hour, 2) AS travel_time_hours
+FROM
+    planets p
+CROSS JOIN
+    (SELECT name, speed_ly_per_hour FROM spaceships ORDER BY speed_ly_per_hour DESC LIMIT 1) s
+WHERE
+    p.climate = 'Temperate'
+    AND p.has_unique_attraction = TRUE
+    AND p.distance_from_earth_ly <= 50
+ORDER BY
+    p.distance_from_earth_ly;
