@@ -111,3 +111,26 @@ WHERE
     AND p.distance_from_earth_ly <= 50
 ORDER BY
     p.distance_from_earth_ly;
+
+SELECT
+    s.name AS superhero_name,
+    s.power,
+    s.team,
+    t.base_location
+FROM
+    superheroes s
+JOIN
+    teams t ON s.team = t.team_name
+WHERE
+    s.power IN (
+        SELECT
+            power
+        FROM
+            superheroes
+        GROUP BY
+            power
+        HAVING
+            COUNT(*) = 1
+    )
+ORDER BY
+    s.team, s.name;
