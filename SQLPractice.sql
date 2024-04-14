@@ -142,3 +142,13 @@ FROM
     employees e
 LEFT JOIN
     employees m ON e.manager_id = m.employee_id;
+
+SELECT
+    p1.project_id AS Project1,
+    p2.project_id AS Project2
+FROM
+    projects p1
+JOIN
+    projects p2 ON p1.start_date <= p2.end_date AND p1.end_date >= p2.start_date
+WHERE
+    p1.project_id < p2.project_id;
