@@ -152,3 +152,12 @@ JOIN
     projects p2 ON p1.start_date <= p2.end_date AND p1.end_date >= p2.start_date
 WHERE
     p1.project_id < p2.project_id;
+
+SELECT
+    date,
+    region,
+    SUM(amount) OVER (PARTITION BY region ORDER BY date) AS running_total
+FROM
+    sales
+ORDER BY
+    date, region;
