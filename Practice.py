@@ -924,6 +924,7 @@ weights = [10, 1, 1]
 # 'apple' will be picked most often
 print(weighted_random_select(elements, weights))
 
+
 def find_peak_bitonic(arr):
     low, high = 0, len(arr) - 1
     while low < high:
@@ -934,9 +935,11 @@ def find_peak_bitonic(arr):
             high = mid
     return arr[low]
 
+
 # Example usage
 arr = [1, 3, 8, 12, 4, 2]
 print(find_peak_bitonic(arr))  # Output: 12
+
 
 class TinyURL:
     def __init__(self):
@@ -963,9 +966,47 @@ class TinyURL:
         else:
             return None
 
+
 # Example usage
 codec = TinyURL()
 url = "https://www.example.com"
 encoded_url = codec.encode(url)
 decoded_url = codec.decode(encoded_url)
 print(decoded_url)  # Output: https://www.example.com
+
+
+class CircularQueue:
+    def __init__(self, size):
+        self.queue = [None] * size
+        self.head = self.tail = -1
+        self.size = size
+
+    def enqueue(self, value):
+        if (self.tail + 1) % self.size == self.head:
+            print("Queue is full")
+            return False
+        if self.head == -1:
+            self.head = 0
+        self.tail = (self.tail + 1) % self.size
+        self.queue[self.tail] = value
+        return True
+
+    def dequeue(self):
+        if self.head == -1:
+            print("Queue is empty")
+            return False
+        result = self.queue[self.head]
+        if self.head == self.tail:
+            self.head = self.tail = -1
+        else:
+            self.head = (self.head + 1) % self.size
+        return result
+
+
+# Example usage
+cq = CircularQueue(3)
+cq.enqueue(1)
+cq.enqueue(2)
+cq.enqueue(3)
+print(cq.dequeue())  # Output: 1
+print(cq.dequeue())  # Output: 2
