@@ -907,3 +907,19 @@ def fibonacci(n):
 
 
 print(fibonacci(10))
+
+
+def weighted_random_select(elements, weights):
+    total_weight = sum(weights)
+    cumulative_weights = [sum(weights[:i+1]) for i in range(len(weights))]
+    r = random.uniform(0, total_weight)
+    for i, total in enumerate(cumulative_weights):
+        if r <= total:
+            return elements[i]
+
+
+# Example usage
+elements = ['apple', 'banana', 'cherry']
+weights = [10, 1, 1]
+# 'apple' will be picked most often
+print(weighted_random_select(elements, weights))
