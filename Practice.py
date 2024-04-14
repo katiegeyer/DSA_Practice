@@ -1010,3 +1010,8 @@ cq.enqueue(2)
 cq.enqueue(3)
 print(cq.dequeue())  # Output: 1
 print(cq.dequeue())  # Output: 2
+
+def square_root(n, precision=0.0001):
+    low, high = 0, n
+    while high - low > precision:
+        mid = (low + high) /
