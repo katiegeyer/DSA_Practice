@@ -937,3 +937,35 @@ def find_peak_bitonic(arr):
 # Example usage
 arr = [1, 3, 8, 12, 4, 2]
 print(find_peak_bitonic(arr))  # Output: 12
+
+class TinyURL:
+    def __init__(self):
+        self.url_to_code = {}
+        self.code_to_url = {}
+        self.base62_chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
+
+    def encode(self, longUrl):
+        if longUrl in self.url_to_code:
+            return "http://tinyurl.com/" + self.url_to_code[longUrl]
+        else:
+            code = ''.join(random.choices(self.base62_chars, k=6))
+            if code not in self.code_to_url:
+                self.url_to_code[longUrl] = code
+                self.code_to_url[code] = longUrl
+                return "http://tinyurl.com/" + code
+            else:
+                return self.encode(longUrl)  # retry with a new code
+
+    def decode(self, shortUrl):
+        code = shortUrl.split("/")[-1]
+        if code in self.code_to_url:
+            return self.code_to_url[code]
+        else:
+            return None
+
+# Example usage
+codec = TinyURL()
+url = "https://www.example.com"
+encoded_url = codec.encode(url)
+decoded_url = codec.decode(encoded_url)
+print(decoded_url)  # Output: https://www.example.com
