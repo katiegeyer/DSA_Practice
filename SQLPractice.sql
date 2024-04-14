@@ -161,3 +161,12 @@ FROM
     sales
 ORDER BY
     date, region;
+
+SELECT
+    product_id,
+    MAX(purchase_date) AS last_purchase_date,
+    COUNT(*) AS total_purchases
+FROM
+    transactions
+GROUP BY
+    product_id;
