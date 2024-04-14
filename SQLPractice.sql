@@ -134,3 +134,11 @@ WHERE
     )
 ORDER BY
     s.team, s.name;
+SELECT
+    e.employee_id,
+    e.name AS employee_name,
+    COALESCE(m.name, 'No Manager') AS manager_name
+FROM
+    employees e
+LEFT JOIN
+    employees m ON e.manager_id = m.employee_id;
