@@ -170,3 +170,14 @@ FROM
     transactions
 GROUP BY
     product_id;
+
+-- Creating a full text index (Assuming this is done beforehand)
+CREATE INDEX idx_fts_content ON documents USING gin (to_tsvector('english', content));
+
+-- Query to find documents containing 'optimization'
+SELECT
+    doc_id
+FROM
+    documents
+WHERE
+    to_tsvector('english', content) @@ to_tsquery('optimization');
