@@ -1053,3 +1053,20 @@ def spreadsheet_column_to_number(column_title):
 # Example usage:
 column_title = "AB"
 print(spreadsheet_column_to_number(column_title))  # Output: 28
+
+def first_non_repeated_char(s):
+    """Find the first non-repeated character in string s."""
+    char_count = {}
+    for char in s:
+        if char in char_count:
+            char_count[char] += 1
+        else:
+            char_count[char] = 1
+    for char in s:
+        if char_count[char] == 1:
+            return char
+    return None
+
+# Example usage:
+string = "interview"
+print(first_non_repeated_char(string))  # Output: 'i'
