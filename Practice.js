@@ -257,3 +257,22 @@ let clone = JSON.parse(JSON.stringify(obj));
 
 clone.b.c = 20;
 console.log(obj.b.c); // 2
+
+function generateSubsets(set) {
+    const subsets = [];
+    const totalSubsets = Math.pow(2, set.length);
+    for (let i = 0; i < totalSubsets; i++) {
+        const subset = [];
+        for (let j = 0; j < set.length; j++) {
+            if (i & (1 << j)) {
+                subset.push(set[j]);
+            }
+        }
+        subsets.push(subset);
+    }
+    return subsets;
+}
+
+// Example usage:
+const mySet = [1, 2, 3];
+console.log(generateSubsets(mySet));
