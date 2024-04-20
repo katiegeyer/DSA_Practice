@@ -1042,3 +1042,14 @@ def rotate_array(nums, k):
 nums = [1, 2, 3, 4, 5]
 k = 2
 print(rotate_array(nums, k))  # Output: [4, 5, 1, 2, 3]
+
+def spreadsheet_column_to_number(column_title):
+    """Convert spreadsheet column title to a number."""
+    result = 0
+    for char in column_title:
+        result = result * 26 + (ord(char) - ord('A') + 1)
+    return result
+
+# Example usage:
+column_title = "AB"
+print(spreadsheet_column_to_number(column_title))  # Output: 28
