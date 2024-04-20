@@ -1070,3 +1070,11 @@ def first_non_repeated_char(s):
 # Example usage:
 string = "interview"
 print(first_non_repeated_char(string))  # Output: 'i'
+
+def is_palindrome(s):
+    """Check if a given string s is a palindrome."""
+    return s == s[::-1]
+
+# Example usage:
+word = "racecar"
+print(is_palindrome(word))  # Output: True
