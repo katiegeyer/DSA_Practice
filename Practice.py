@@ -1031,3 +1031,14 @@ def find_pairs_with_sum(nums, target):
 nums = [2, 7, 11, 15, -2]
 target = 9
 print(find_pairs_with_sum(nums, target))  # Output: [(2, 7), (-2, 11)]
+
+def rotate_array(nums, k):
+    """Rotate the array to the right by k steps."""
+    k = k % len(nums)  # In case k is greater than the length of the list
+    nums[:] = nums[-k:] + nums[:-k]
+    return nums
+
+# Example usage:
+nums = [1, 2, 3, 4, 5]
+k = 2
+print(rotate_array(nums, k))  # Output: [4, 5, 1, 2, 3]
