@@ -1015,3 +1015,19 @@ def square_root(n, precision=0.0001):
     low, high = 0, n
     while high - low > precision:
         mid = (low + high) /
+
+def find_pairs_with_sum(nums, target):
+    """Find all pairs in the list that sum up to the target."""
+    seen = {}
+    pairs = []
+    for num in nums:
+        complement = target - num
+        if complement in seen:
+            pairs.append((complement, num))
+        seen[num] = True
+    return pairs
+
+# Example usage:
+nums = [2, 7, 11, 15, -2]
+target = 9
+print(find_pairs_with_sum(nums, target))  # Output: [(2, 7), (-2, 11)]
