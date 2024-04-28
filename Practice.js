@@ -310,3 +310,11 @@ function solveSudoku(board) {
     backtrack();
     return board;
 }
+
+function simpleGrep(pattern, lines) {
+    return lines.filter(line => line.includes(pattern));
+}
+
+// Example usage:
+const lines = ["hello world", "hello there", "hello", "world"];
+console.log(simpleGrep("hello", lines));  // Output: ["hello world", "hello there", "hello"]
