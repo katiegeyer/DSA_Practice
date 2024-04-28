@@ -1103,3 +1103,24 @@ def solve_sudoku(board):
 
     backtrack()
     return board
+
+
+import random
+
+class TinyURL:
+    def __init__(self):
+        self.url_map = {}
+        self.alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
+        self.key_length = 6
+        self.base_url = "http://tinyurl.com/"
+
+    def encode(self, longUrl):
+        key = ''.join(random.choices(self.alphabet, k=self.key_length))
+        while key in self.url_map:
+            key = ''.join(random.choices(self.alphabet, k=self.key_length))
+        self.url_map[key] = longUrl
+        return self.base_url + key
+
+    def decode(self, shortUrl):
+        key = shortUrl.split('/')[-1]
+        return self.url_map.get(key, None)
