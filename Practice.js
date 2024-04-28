@@ -334,3 +334,17 @@ function flattenArray(arr) {
 // Example usage:
 const nestedArray = [1, [2, [3, [4]], 5]];
 console.log(flattenArray(nestedArray));  // Output: [1, 2, 3, 4, 5]
+
+function debounce(func, wait) {
+    let timeout;
+    return function () {
+        const context = this, args = arguments;
+        clearTimeout(timeout);
+        timeout = setTimeout(() => func.apply(context, args), wait);
+    };
+}
+
+// Example usage:
+window.addEventListener('resize', debounce(() => {
+    console.log('Resize event triggered!');
+}, 200));
