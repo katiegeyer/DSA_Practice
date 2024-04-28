@@ -1124,3 +1124,24 @@ class TinyURL:
     def decode(self, shortUrl):
         key = shortUrl.split('/')[-1]
         return self.url_map.get(key, None)
+
+class TreeNode:
+    def __init__(self, x):
+        self.val = x
+        self.left = None
+        self.right = None
+
+def all_possible_fbt(N):
+    if N % 2 == 0:
+        return []
+    if N == 1:
+        return [TreeNode(0)]
+    result = []
+    for i in range(1, N, 2):
+        for left in all_possible_fbt(i):
+            for right in all_possible_fbt(N - 1 - i):
+                root = TreeNode(0)
+                root.left = left
+                root.right = right
+                result.append(root)
+    return result
