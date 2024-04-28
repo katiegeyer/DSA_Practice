@@ -318,3 +318,19 @@ function simpleGrep(pattern, lines) {
 // Example usage:
 const lines = ["hello world", "hello there", "hello", "world"];
 console.log(simpleGrep("hello", lines));  // Output: ["hello world", "hello there", "hello"]
+
+function flattenArray(arr) {
+    const flat = [];
+    arr.forEach(item => {
+        if (Array.isArray(item)) {
+            flat.push(...flattenArray(item));
+        } else {
+            flat.push(item);
+        }
+    });
+    return flat;
+}
+
+// Example usage:
+const nestedArray = [1, [2, [3, [4]], 5]];
+console.log(flattenArray(nestedArray));  // Output: [1, 2, 3, 4, 5]
