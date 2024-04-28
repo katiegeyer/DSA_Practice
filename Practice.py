@@ -1145,3 +1145,33 @@ def all_possible_fbt(N):
                 root.right = right
                 result.append(root)
     return result
+
+def merge_intervals(intervals):
+    intervals.sort(key=lambda x: x[0])
+    merged = []
+    for interval in intervals:
+        if not merged or merged[-1][1] < interval[0]:
+            merged.append(interval)
+        else:
+            merged[-1][1] = max(merged[-1][1], interval[1])
+    return merged
+
+def free_slots(working_hours, meetings, duration):
+    bounds = (hours_to_minutes(working_hours[0]), hours_to_minutes(working_hours[1]))
+    booked = merge_intervals([[hours_to_minutes(start), hours_to_minutes(end)] for start, end in meetings])
+    free = []
+    start = bounds[0]
+    for end in booked:
+        if end[0] - start >= duration:
+            free.append((start, end[0]))
+        start = max(start, end[1])
+    if bounds[1] - start >= duration:
+        free.append((start, bounds[1]))
+    return [(minutes_to_hours(s), minutes_to_hours(e)) for s, e in free]
+
+def hours_to_minutes(time):
+    h, m = map(int, time.split(':'))
+    return h * 60 + m
+
+def minutes_to_hours(minutes):
+    return f'{minutes // 60:02d}:{minutes % 60:02d}'
