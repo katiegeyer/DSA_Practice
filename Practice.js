@@ -277,3 +277,36 @@ function generateSubsets(set) {
 const mySet = [1, 2, 3];
 console.log(generateSubsets(mySet));
 
+function solveSudoku(board) {
+    function isValid(num, row, col) {
+        for (let i = 0; i < 9; i++) {
+            const boxRow = 3 * Math.floor(row / 3) + Math.floor(i / 3);
+            const boxCol = 3 * Math.floor(col / 3) + i % 3;
+            if (board[i][col] === num || board[row][i] === num || board[boxRow][boxCol] === num) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    function backtrack() {
+        for (let row = 0; row < 9; row++) {
+            for (let col = 0; col < 9; col++) {
+                if (board[row][col] === '.') {
+                    for (let num = 1; num <= 9; num++) {
+                        if (isValid(String(num), row, col)) {
+                            board[row][col] = String(num);
+                            if (backtrack()) return true;
+                            board[row][col] = '.';
+                        }
+                    }
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    backtrack();
+    return board;
+}
