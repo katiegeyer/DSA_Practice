@@ -1175,3 +1175,24 @@ def hours_to_minutes(time):
 
 def minutes_to_hours(minutes):
     return f'{minutes // 60:02d}:{minutes % 60:02d}'
+
+def min_transactions(debts):
+    balance = {}
+    for debtor, creditor, amount in debts:
+        balance[debtor] = balance.get(debtor, 0) - amount
+        balance[creditor] = balance.get(creditor, 0) + amount
+
+    balances = list(filter(lambda x: x != 0, balance.values()))
+
+    def settle(balances):
+        if not balances:
+            return 0
+        min_trans = float('inf')
+        for i in range(1, len(balances)):
+            if balances[0] * balances[i] < 0:
+                balances[i] += balances[0]
+                min_trans = min(min_trans, 1 + settle(balances[1:]))
+                balances[i] -= balances[0]
+        return min_trans
+
+    return settle(balances)
