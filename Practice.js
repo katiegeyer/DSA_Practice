@@ -348,3 +348,11 @@ function debounce(func, wait) {
 window.addEventListener('resize', debounce(() => {
     console.log('Resize event triggered!');
 }, 200));
+
+function areAnagrams(str1, str2) {
+    const normalize = str => str.toLowerCase().replace(/[\W_]+/g, '').split('').sort().join('');
+    return normalize(str1) === normalize(str2);
+}
+
+// Example usage:
+console.log(areAnagrams("listen", "silent"));  // Output: true
