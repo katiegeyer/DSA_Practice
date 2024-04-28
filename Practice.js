@@ -276,3 +276,28 @@ function generateSubsets(set) {
 // Example usage:
 const mySet = [1, 2, 3];
 console.log(generateSubsets(mySet));
+
+def solve_sudoku(board):
+    def is_valid(num, row, col):
+for i in range(9):
+    if board[i][col] == num or board[row][i] == num:
+return False
+if board[3 * (row // 3) + i // 3][3 * (col // 3) + i % 3] == num:
+                return False
+return True
+
+    def backtrack():
+for i in range(9):
+    for j in range(9):
+        if board[i][j] == '.':
+            for num in '123456789':
+                if is_valid(num, i, j):
+                    board[i][j] = num
+if backtrack():
+    return True
+board[i][j] = '.'
+return False
+return True
+
+backtrack()
+return board
