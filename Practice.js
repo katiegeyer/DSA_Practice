@@ -452,3 +452,55 @@ const encodedStr = codec.encode(["abc", "def", "ghi"]);
 console.log("Encoded String:", encodedStr);
 const decodedStrs = codec.decode(encodedStr);
 console.log("Decoded Strings:", decodedStrs);
+
+function uniquePaths(grid) {
+    const rows = grid.length;
+    const cols = grid[0].length;
+    const dp = Array.from(Array(rows), () => Array(cols).fill(0));
+
+    for (let i = 0; i < rows; i++) {
+        for (let j = 0; j < cols; j++) {
+            if (grid[i][j] === 1) {
+                dp[i][j] = 0;
+            } else if (i === 0 && j === 0) {
+                dp[i][j] = 1;
+            } else if (i === 0) {
+                dp[i][j] = dp[i][j - 1];
+            } else if (j === 0) {
+                dp[i][j] = dp[i - 1][j];
+            } else {
+                dp[i][j] = dp[i - 1][j] + dp[i][j - 1];
+            }
+        }
+    }
+    return dp[rows - 1][cols - 1];
+}
+
+// Example usage:
+const grid = [
+    [0, 0, 0],
+    [0, 1, 0],
+    [0, 0, 0]
+];
+console.log("Unique Paths:", uniquePaths(grid));
+
+function flip(stack, k) {
+    return stack.slice(0, k).reverse().concat(stack.slice(k));
+}
+
+function pancakeSort(stack) {
+    const n = stack.length;
+    for (let size = n; size > 0; size--) {
+        const maxIndex = stack.indexOf(size);
+        if (maxIndex !== size - 1) {
+            stack = flip(stack, maxIndex + 1);
+            stack = flip(stack, size);
+        }
+    }
+    return stack;
+}
+
+// Example usage:
+const stack = [3, 1, 4, 2, 5];
+const sortedStack = pancakeSort(stack);
+console.log("Sorted Stack:", sortedStack);
