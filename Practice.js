@@ -520,3 +520,24 @@ return left
 # Example usage:
 nums = [1, 2, 1, 3, 5, 6, 4]
 print("Peak Element Index:", find_peak_element(nums))
+
+def max_product_subarray(nums):
+if not nums:
+    return 0
+
+max_product = min_product = result = nums[0]
+
+for i in range(1, len(nums)):
+    if nums[i] < 0:
+        max_product, min_product = min_product, max_product
+
+max_product = max(nums[i], max_product * nums[i])
+min_product = min(nums[i], min_product * nums[i])
+
+result = max(result, max_product)
+
+return result
+
+# Example usage:
+nums = [2, 3, -2, 4]
+print("Maximum Product Subarray:", max_product_subarray(nums))
