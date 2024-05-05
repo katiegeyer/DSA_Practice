@@ -427,3 +427,28 @@ function rotateWords(words, k) {
 const words = ["hello", "world", "python"];
 const rotatedWords = rotateWords(words, 2);
 console.log("Rotated Words:", rotatedWords);
+
+class Codec {
+    encode(strs) {
+        return strs.map(str => str.length + '/' + str).join('');
+    }
+
+    decode(s) {
+        const res = [];
+        let i = 0;
+        while (i < s.length) {
+            const slashIndex = s.indexOf('/', i);
+            const size = parseInt(s.substring(i, slashIndex));
+            i = slashIndex + size + 1;
+            res.push(s.substring(slashIndex + 1, i));
+        }
+        return res;
+    }
+}
+
+// Example usage:
+const codec = new Codec();
+const encodedStr = codec.encode(["abc", "def", "ghi"]);
+console.log("Encoded String:", encodedStr);
+const decodedStrs = codec.decode(encodedStr);
+console.log("Decoded Strings:", decodedStrs);
