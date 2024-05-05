@@ -1196,3 +1196,24 @@ def min_transactions(debts):
         return min_trans
 
     return settle(balances)
+
+class Codec:
+    def encode(self, strs):
+        return ''.join([str(len(s)) + '/' + s for s in strs])
+
+    def decode(self, s):
+        res = []
+        i = 0
+        while i < len(s):
+            slash_index = s.find('/', i)
+            size = int(s[i:slash_index])
+            i = slash_index + size + 1
+            res.append(s[slash_index + 1: i])
+        return res
+
+# Example usage:
+codec = Codec()
+encoded_str = codec.encode(["abc", "def", "ghi"])
+print("Encoded String:", encoded_str)
+decoded_strs = codec.decode(encoded_str)
+print("Decoded Strings:", decoded_strs)

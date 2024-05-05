@@ -541,3 +541,4 @@ return result
 # Example usage:
 nums = [2, 3, -2, 4]
 print("Maximum Product Subarray:", max_product_subarray(nums))
+
