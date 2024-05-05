@@ -414,3 +414,16 @@ function maxProductSubarray(nums) {
 // Example usage:
 const nums = [2, 3, -2, 4];
 console.log("Maximum Product Subarray:", maxProductSubarray(nums));
+
+function rotateWord(word, k) {
+    return word.slice(-k) + word.slice(0, -k);
+}
+
+function rotateWords(words, k) {
+    return words.map(word => rotateWord(word, k));
+}
+
+// Example usage:
+const words = ["hello", "world", "python"];
+const rotatedWords = rotateWords(words, 2);
+console.log("Rotated Words:", rotatedWords);
