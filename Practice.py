@@ -3,6 +3,8 @@
 #     def __init__(self, val=0, next=None):
 #         self.val = val
 #         self.next = next
+import bisect
+import collections
 import heapq
 from PIL import Image
 import time
@@ -1365,3 +1367,24 @@ mf.addNum(2)
 print(mf.findMedian())  # Output: 1.5
 mf.addNum(3)
 print(mf.findMedian())  # Output: 2
+
+
+class TimeMap:
+    def __init__(self):
+        self.store = collections.defaultdict(list)
+
+    def set(self, key, value, timestamp):
+        self.store[key].append((timestamp, value))
+
+    def get(self, key, timestamp):
+        A = self.store[key]
+        i = bisect.bisect_right(A, (timestamp, chr(255)))
+        return A[i-1][1] if i else ""
+
+
+# Example usage:
+tm = TimeMap()
+tm.set("foo", "bar", 1)
+print(tm.get("foo", 1))  # Output: "bar"
+# Should return "bar" since timestamp 3 >= 1 and there are no later entries
+print(tm.get("foo", 3))
