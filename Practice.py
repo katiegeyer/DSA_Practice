@@ -1263,3 +1263,38 @@ url = "https://www.example.com"
 encoded_url = codec.encode(url)
 decoded_url = codec.decode(encoded_url)
 print(f"Encoded: {encoded_url}, Decoded: {decoded_url}")
+
+
+class SnapshotArray:
+    def __init__(self, length):
+        self.array = [[[-1, 0]] for _ in range(length)]
+        self.snap_id = 0
+
+    def set(self, index, val):
+        if self.array[index][-1][0] == self.snap_id:
+            self.array[index][-1][1] = val
+        else:
+            self.array[index].append([self.snap_id, val])
+
+    def snap(self):
+        self.snap_id += 1
+        return self.snap_id - 1
+
+    def get(self, index, snap_id):
+        snapshots = self.array[index]
+        # Binary search for the first element in snapshots with a snap_id <= given snap_id
+        lo, hi = 0, len(snapshots) - 1
+        while lo < hi:
+            mid = (lo + hi + 1) // 2
+            if snapshots[mid][0] <= snap_id:
+                lo = mid
+            else:
+                hi = mid - 1
+        return snapshots[lo][1]
+
+
+# Example usage:
+snap_arr = SnapshotArray(3)
+snap_arr.set(0, 5)
+snap_id = snap_arr.snap()  # Take a snapshot, returns 0
+print(snap_arr.get(0, snap_id))  # Output: 5
