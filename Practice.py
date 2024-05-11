@@ -1011,10 +1011,12 @@ cq.enqueue(3)
 print(cq.dequeue())  # Output: 1
 print(cq.dequeue())  # Output: 2
 
+
 def square_root(n, precision=0.0001):
     low, high = 0, n
     while high - low > precision:
         mid = (low + high) /
+
 
 def find_pairs_with_sum(nums, target):
     """Find all pairs in the list that sum up to the target."""
@@ -1027,10 +1029,12 @@ def find_pairs_with_sum(nums, target):
         seen[num] = True
     return pairs
 
+
 # Example usage:
 nums = [2, 7, 11, 15, -2]
 target = 9
 print(find_pairs_with_sum(nums, target))  # Output: [(2, 7), (-2, 11)]
+
 
 def rotate_array(nums, k):
     """Rotate the array to the right by k steps."""
@@ -1038,10 +1042,12 @@ def rotate_array(nums, k):
     nums[:] = nums[-k:] + nums[:-k]
     return nums
 
+
 # Example usage:
 nums = [1, 2, 3, 4, 5]
 k = 2
 print(rotate_array(nums, k))  # Output: [4, 5, 1, 2, 3]
+
 
 def spreadsheet_column_to_number(column_title):
     """Convert spreadsheet column title to a number."""
@@ -1050,9 +1056,11 @@ def spreadsheet_column_to_number(column_title):
         result = result * 26 + (ord(char) - ord('A') + 1)
     return result
 
+
 # Example usage:
 column_title = "AB"
 print(spreadsheet_column_to_number(column_title))  # Output: 28
+
 
 def first_non_repeated_char(s):
     """Find the first non-repeated character in string s."""
@@ -1067,17 +1075,21 @@ def first_non_repeated_char(s):
             return char
     return None
 
+
 # Example usage:
 string = "interview"
 print(first_non_repeated_char(string))  # Output: 'i'
+
 
 def is_palindrome(s):
     """Check if a given string s is a palindrome."""
     return s == s[::-1]
 
+
 # Example usage:
 word = "racecar"
 print(is_palindrome(word))  # Output: True
+
 
 def solve_sudoku(board):
     def is_valid(num, row, col):
@@ -1105,8 +1117,6 @@ def solve_sudoku(board):
     return board
 
 
-import random
-
 class TinyURL:
     def __init__(self):
         self.url_map = {}
@@ -1125,11 +1135,13 @@ class TinyURL:
         key = shortUrl.split('/')[-1]
         return self.url_map.get(key, None)
 
+
 class TreeNode:
     def __init__(self, x):
         self.val = x
         self.left = None
         self.right = None
+
 
 def all_possible_fbt(N):
     if N % 2 == 0:
@@ -1146,6 +1158,7 @@ def all_possible_fbt(N):
                 result.append(root)
     return result
 
+
 def merge_intervals(intervals):
     intervals.sort(key=lambda x: x[0])
     merged = []
@@ -1156,9 +1169,12 @@ def merge_intervals(intervals):
             merged[-1][1] = max(merged[-1][1], interval[1])
     return merged
 
+
 def free_slots(working_hours, meetings, duration):
-    bounds = (hours_to_minutes(working_hours[0]), hours_to_minutes(working_hours[1]))
-    booked = merge_intervals([[hours_to_minutes(start), hours_to_minutes(end)] for start, end in meetings])
+    bounds = (hours_to_minutes(
+        working_hours[0]), hours_to_minutes(working_hours[1]))
+    booked = merge_intervals(
+        [[hours_to_minutes(start), hours_to_minutes(end)] for start, end in meetings])
     free = []
     start = bounds[0]
     for end in booked:
@@ -1169,12 +1185,15 @@ def free_slots(working_hours, meetings, duration):
         free.append((start, bounds[1]))
     return [(minutes_to_hours(s), minutes_to_hours(e)) for s, e in free]
 
+
 def hours_to_minutes(time):
     h, m = map(int, time.split(':'))
     return h * 60 + m
 
+
 def minutes_to_hours(minutes):
     return f'{minutes // 60:02d}:{minutes % 60:02d}'
+
 
 def min_transactions(debts):
     balance = {}
@@ -1197,6 +1216,7 @@ def min_transactions(debts):
 
     return settle(balances)
 
+
 class Codec:
     def encode(self, strs):
         return ''.join([str(len(s)) + '/' + s for s in strs])
@@ -1211,9 +1231,35 @@ class Codec:
             res.append(s[slash_index + 1: i])
         return res
 
+
 # Example usage:
 codec = Codec()
 encoded_str = codec.encode(["abc", "def", "ghi"])
 print("Encoded String:", encoded_str)
 decoded_strs = codec.decode(encoded_str)
 print("Decoded Strings:", decoded_strs)
+
+
+class TinyURL:
+    def __init__(self):
+        self.url_map = {}
+        self.id = 0
+
+    def encode(self, longUrl):
+        """Encodes a URL to a shortened URL."""
+        shortUrl = "http://tinyurl.com/" + str(self.id)
+        self.url_map[shortUrl] = longUrl
+        self.id += 1
+        return shortUrl
+
+    def decode(self, shortUrl):
+        """Decodes a shortened URL to its original URL."""
+        return self.url_map.get(shortUrl, None)
+
+
+# Example usage:
+codec = TinyURL()
+url = "https://www.example.com"
+encoded_url = codec.encode(url)
+decoded_url = codec.decode(encoded_url)
+print(f"Encoded: {encoded_url}, Decoded: {decoded_url}")
