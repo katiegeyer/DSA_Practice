@@ -554,3 +554,43 @@ class MedianFinder {
 const mf = new MedianFinder();
 mf.addNum(1);
 mf.addNum
+
+class RandomizedCollection {
+    constructor() {
+        this.vals = [];
+        this.idx = new Map();
+    }
+
+    insert(val) {
+        this.vals.push(val);
+        const set = this.idx.get(val) || new Set();
+        set.add(this.vals.length - 1);
+        this.idx.set(val, set);
+        return set.size === 1;
+    }
+
+    remove(val) {
+        if (!this.idx.has(val) || this.idx.get(val).size === 0) {
+            return false;
+        }
+        let removeIdx = Array.from(this.idx.get(val))[0];
+        let lastElement = this.vals[this.vals.length - 1];
+        this.vals[removeIdx] = lastElement;
+        this.idx.get(val).delete(removeIdx);
+        this.idx.get(lastElement).add(removeIdx);
+        this.idx.get(lastElement).delete(this.vals.length - 1);
+        this.vals.pop();
+        return true;
+    }
+
+    getRandom() {
+        return this.vals[Math.floor(Math.random() * this.vals.length)];
+    }
+}
+
+// Example usage:
+const obj = new RandomizedCollection();
+console.log(obj.insert(1));  // True
+console.log(obj.insert(1));  // False
+console.log(obj.remove(1));  // True
+console.log(obj.getRandom());  // Randomly get 1
