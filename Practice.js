@@ -505,7 +505,7 @@ const stack = [3, 1, 4, 2, 5];
 const sortedStack = pancakeSort(stack);
 console.log("Sorted Stack:", sortedStack);
 
-def find_peak_element(nums):
+const find_peak_element(nums):
 left, right = 0, len(nums) - 1
 
 while left < right:
@@ -517,28 +517,40 @@ left = mid + 1
 
 return left
 
-# Example usage:
-nums = [1, 2, 1, 3, 5, 6, 4]
-print("Peak Element Index:", find_peak_element(nums))
-
-def max_product_subarray(nums):
-if not nums:
-    return 0
-
-max_product = min_product = result = nums[0]
-
-for i in range(1, len(nums)):
-    if nums[i] < 0:
-        max_product, min_product = min_product, max_product
-
-max_product = max(nums[i], max_product * nums[i])
-min_product = min(nums[i], min_product * nums[i])
-
-result = max(result, max_product)
-
-return result
-
-# Example usage:
+//Example usage:
 nums = [2, 3, -2, 4]
 print("Maximum Product Subarray:", max_product_subarray(nums))
 
+const { MinPriorityQueue, MaxPriorityQueue } = require('@datastructures-js/priority-queue');
+
+class MedianFinder {
+    constructor() {
+        this.lo = new MaxPriorityQueue();  // Max heap
+        this.hi = new MinPriorityQueue();  // Min heap
+    }
+
+    addNum(num) {
+        this.lo.enqueue(num);
+        if (this.lo.size() > 0 && this.hi.size() > 0 && this.lo.front().element > this.hi.front().element) {
+            this.hi.enqueue(this.lo.dequeue().element);
+        }
+        if (this.lo.size() > this.hi.size() + 1) {
+            this.hi.enqueue(this.lo.dequeue().element);
+        }
+        if (this.hi.size() > this.lo.size()) {
+            this.lo.enqueue(this.hi.dequeue().element);
+        }
+    }
+
+    findMedian() {
+        if (this.lo.size() > this.hi.size()) {
+            return this.lo.front().element;
+        }
+        return (this.hi.front().element + this.lo.front().element) / 2.0;
+    }
+}
+
+// Example usage:
+const mf = new MedianFinder();
+mf.addNum(1);
+mf.addNum
