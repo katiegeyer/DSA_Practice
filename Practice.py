@@ -1298,3 +1298,38 @@ snap_arr = SnapshotArray(3)
 snap_arr.set(0, 5)
 snap_id = snap_arr.snap()  # Take a snapshot, returns 0
 print(snap_arr.get(0, snap_id))  # Output: 5
+
+
+class RandomizedCollection:
+    def __init__(self):
+        self.vals, self.idx = [], {}
+
+    def insert(self, val):
+        self.vals.append(val)
+        if val in self.idx:
+            self.idx[val].add(len(self.vals) - 1)
+        else:
+            self.idx[val] = {len(self.vals) - 1}
+        return len(self.idx[val]) == 1
+
+    def remove(self, val):
+        if val not in self.idx or not self.idx[val]:
+            return False
+        remove_idx, last_element = self.idx[val].pop(), self.vals[-1]
+        self.vals[remove_idx] = last_element
+        if self.idx[last_element]:
+            self.idx[last_element].add(remove_idx)
+            self.idx[last_element].discard(len(self.vals) - 1)
+        self.vals.pop()
+        return True
+
+    def getRandom(self):
+        return random.choice(self.vals)
+
+
+# Example usage:
+obj = RandomizedCollection()
+print(obj.insert(1))  # True, inserted first 1
+print(obj.insert(1))  # False, inserted second 1
+print(obj.remove(1))  # True, removed one 1
+print(obj.getRandom())  # Randomly get 1
