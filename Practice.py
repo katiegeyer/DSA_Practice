@@ -3,6 +3,7 @@
 #     def __init__(self, val=0, next=None):
 #         self.val = val
 #         self.next = next
+import heapq
 from PIL import Image
 import time
 import random
@@ -1333,3 +1334,34 @@ print(obj.insert(1))  # True, inserted first 1
 print(obj.insert(1))  # False, inserted second 1
 print(obj.remove(1))  # True, removed one 1
 print(obj.getRandom())  # Randomly get 1
+
+
+class MedianFinder:
+    def __init__(self):
+        self.lo = []  # Max heap for the lower half
+        self.hi = []  # Min heap for the upper half
+
+    def addNum(self, num):
+        # Push negated num to maintain max heap property
+        heapq.heappush(self.lo, -num)
+        # Balance heaps
+        if self.lo and self.hi and (-self.lo[0] > self.hi[0]):
+            heapq.heappush(self.hi, -heapq.heappop(self.lo))
+        if len(self.lo) > len(self.hi) + 1:
+            heapq.heappush(self.hi, -heapq.heappop(self.lo))
+        if len(self.hi) > len(self.lo):
+            heapq.heappush(self.lo, -heapq.heappop(self.hi))
+
+    def findMedian(self):
+        if len(self.lo) > len(self.hi):
+            return -self.lo[0]
+        return (self.hi[0] - self.lo[0]) / 2.0
+
+
+# Example usage:
+mf = MedianFinder()
+mf.addNum(1)
+mf.addNum(2)
+print(mf.findMedian())  # Output: 1.5
+mf.addNum(3)
+print(mf.findMedian())  # Output: 2
