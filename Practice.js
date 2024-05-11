@@ -594,3 +594,43 @@ console.log(obj.insert(1));  // True
 console.log(obj.insert(1));  // False
 console.log(obj.remove(1));  // True
 console.log(obj.getRandom());  // Randomly get 1
+
+class SnapshotArray {
+    constructor(length) {
+        this.array = Array.from({ length }, () => [[-1, 0]]);
+        this.snapId = 0;
+    }
+
+    set(index, val) {
+        const arr = this.array[index];
+        if (arr[arr.length - 1][0] === this.snapId) {
+            arr[arr.length - 1][1] = val;
+        } else {
+            arr.push([this.snapId, val]);
+        }
+    }
+
+    snap() {
+        return this.snapId++;
+    }
+
+    get(index, snapId) {
+        const snapshots = this.array[index];
+        let lo = 0, hi = snapshots.length - 1;
+        while (lo < hi) {
+            const mid = Math.floor((lo + hi + 1) / 2);
+            if (snapshots[mid][0] <= snapId) {
+                lo = mid;
+            } else {
+                hi = mid - 1;
+            }
+        }
+        return snapshots[lo][1];
+    }
+}
+
+// Example usage:
+const snapArray = new SnapshotArray(3);
+snapArray.set(0, 5);
+const snapId = snapArray.snap();
+console.log(snapArray.get(0, snapId));  // Output: 5
