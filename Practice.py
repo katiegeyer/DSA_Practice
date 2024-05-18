@@ -1414,3 +1414,21 @@ def expand_around_center(s, left, right):
 # Test
 print(longest_palindrome("babad"))  # Output: "bab" or "aba"
 print(longest_palindrome("cbbd"))  # Output: "bb"
+
+
+def remove_duplicates(nums):
+    if not nums:
+        return 0
+    j = 0
+    for i in range(1, len(nums)):
+        if nums[i] != nums[j]:
+            j += 1
+            nums[j] = nums[i]
+    return j + 1
+
+
+# Test
+nums = [1, 1, 2, 2, 3, 4, 4, 5]
+length = remove_duplicates(nums)
+print(length)  # Output: 5
+print(nums[:length])  # Output: [1, 2, 3, 4, 5]
