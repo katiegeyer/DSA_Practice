@@ -634,3 +634,21 @@ const snapArray = new SnapshotArray(3);
 snapArray.set(0, 5);
 const snapId = snapArray.snap();
 console.log(snapArray.get(0, snapId));  // Output: 5
+
+function removeDuplicates(nums) {
+    if (nums.length === 0) return 0;
+    let j = 0;
+    for (let i = 1; i < nums.length; i++) {
+        if (nums[i] !== nums[j]) {
+            j++;
+            nums[j] = nums[i];
+        }
+    }
+    return j + 1;
+}
+
+// Test
+const nums = [1, 1, 2, 2, 3, 4, 4, 5];
+const length = removeDuplicates(nums);
+console.log(length); // Output: 5
+console.log(nums.slice(0, length)); // Output: [1, 2, 3, 4, 5]
