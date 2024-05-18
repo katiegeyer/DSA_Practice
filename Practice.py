@@ -1459,3 +1459,11 @@ def is_prime(n):
 # Test
 print(is_prime(7))  # Output: True
 print(is_prime(10))  # Output: False
+
+
+def reverse_string(s):
+    return s[::-1]
+
+
+# Test
+print(reverse_string("hello"))  # Output: "olleh"
