@@ -909,3 +909,10 @@ function fizzBuzz() {
 
 // Example usage:
 fizzBuzz();
+
+function findLargestNumber(arr) {
+    return Math.max(...arr);
+}
+
+// Example usage:
+console.log(findLargestNumber([1, 2, 3, 4, 5])); // Output: 5
