@@ -770,3 +770,84 @@ emitter.on('foo', onFoo);
 emitter.emit('foo', { some: 'data' }); // Output: "foo event: { some: 'data' }"
 emitter.off('foo', onFoo);
 emitter.emit('foo', { some: 'data' }); // No output
+
+class SimplePromise {
+    constructor(executor) {
+        this.state = 'pending';
+        this.value = undefined;
+        this.reason = undefined;
+        this.onFulfilledCallbacks = [];
+        this.onRejectedCallbacks = [];
+
+        const resolve = value => {
+            if (this.state === 'pending') {
+                this.state = 'fulfilled';
+                this.value = value;
+                this.onFulfilledCallbacks.forEach(callback => callback(this.value));
+            }
+        };
+
+        const reject = reason => {
+            if (this.state === 'pending') {
+                this.state = 'rejected';
+                this.reason = reason;
+                this.onRejectedCallbacks.forEach(callback => callback(this.reason));
+            }
+        };
+
+        try {
+            executor(resolve, reject);
+        } catch (err) {
+            reject(err);
+        }
+    }
+
+    then(onFulfilled, onRejected) {
+        return new SimplePromise((resolve, reject) => {
+            if (this.state === 'fulfilled') {
+                try {
+                    const result = onFulfilled(this.value);
+                    resolve(result);
+                } catch (err) {
+                    reject(err);
+                }
+            }
+
+            if (this.state === 'rejected') {
+                try {
+                    const result = onRejected(this.reason);
+                    resolve(result);
+                } catch (err) {
+                    reject(err);
+                }
+            }
+
+            if (this.state === 'pending') {
+                this.onFulfilledCallbacks.push(value => {
+                    try {
+                        const result = onFulfilled(value);
+                        resolve(result);
+                    } catch (err) {
+                        reject(err);
+                    }
+                });
+
+                this.onRejectedCallbacks.push(reason => {
+                    try {
+                        const result = onRejected(reason);
+                        resolve(result);
+                    } catch (err) {
+                        reject(err);
+                    }
+                });
+            }
+        });
+    }
+}
+
+// Example usage:
+const promise = new SimplePromise((resolve, reject) => {
+    setTimeout(() => resolve('Success!'), 1000);
+});
+
+promise.then(result => console.log(result)); // Output: "Success!"
