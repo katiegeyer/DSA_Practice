@@ -916,3 +916,12 @@ function findLargestNumber(arr) {
 
 // Example usage:
 console.log(findLargestNumber([1, 2, 3, 4, 5])); // Output: 5
+
+function isPalindrome(str) {
+    const cleanedStr = str.replace(/[^A-Za-z0-9]/g, '').toLowerCase();
+    const reversedStr = cleanedStr.split('').reverse().join('');
+    return cleanedStr === reversedStr;
+}
+
+// Example usage:
+console.log(isPalindrome("A man, a plan, a canal, Panama")); // Output: true
