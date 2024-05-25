@@ -652,3 +652,86 @@ const nums = [1, 1, 2, 2, 3, 4, 4, 5];
 const length = removeDuplicates(nums);
 console.log(length); // Output: 5
 console.log(nums.slice(0, length)); // Output: [1, 2, 3, 4, 5]
+
+
+class Node {
+    constructor(value) {
+        this.value = value;
+        this.next = null;
+    }
+}
+
+class LinkedList {
+    constructor() {
+        this.head = null;
+        this.length = 0;
+    }
+
+    append(value) {
+        const newNode = new Node(value);
+        if (!this.head) {
+            this.head = newNode;
+        } else {
+            let current = this.head;
+            while (current.next) {
+                current = current.next;
+            }
+            current.next = newNode;
+        }
+        this.length++;
+    }
+
+    prepend(value) {
+        const newNode = new Node(value);
+        newNode.next = this.head;
+        this.head = newNode;
+        this.length++;
+    }
+
+    delete(value) {
+        if (!this.head) return;
+
+        if (this.head.value === value) {
+            this.head = this.head.next;
+            this.length--;
+            return;
+        }
+
+        let current = this.head;
+        while (current.next && current.next.value !== value) {
+            current = current.next;
+        }
+
+        if (current.next) {
+            current.next = current.next.next;
+            this.length--;
+        }
+    }
+
+    find(value) {
+        let current = this.head;
+        while (current) {
+            if (current.value === value) return current;
+            current = current.next;
+        }
+        return null;
+    }
+
+    print() {
+        let current = this.head;
+        while (current) {
+            console.log(current.value);
+            current = current.next;
+        }
+    }
+}
+
+// Example usage:
+const list = new LinkedList();
+list.append(1);
+list.append(2);
+list.prepend(0);
+list.print(); // Output: 0 1 2
+list.delete(1);
+list.print(); // Output: 0 2
+console.log(list.find(2)); // Output: Node { value: 2, next: null }
