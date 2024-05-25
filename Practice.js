@@ -877,3 +877,18 @@ const original = { a: 1, b: { c: 2 } };
 const copied = deepClone(original);
 console.log(copied); // Output: { a: 1, b: { c: 2 } }
 console.log(copied.b === original.b); // Output: false
+
+function debounce(func, wait) {
+    let timeout;
+    return function (...args) {
+        const context = this;
+        clearTimeout(timeout);
+        timeout = setTimeout(() => func.apply(context, args), wait);
+    };
+}
+
+// Example usage:
+const debouncedFunction = debounce(() => console.log("Executed!"), 2000);
+debouncedFunction();
+debouncedFunction();
+debouncedFunction(); // Only this call will execute the function after 2 seconds.
