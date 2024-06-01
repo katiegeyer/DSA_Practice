@@ -925,3 +925,22 @@ function isPalindrome(str) {
 
 // Example usage:
 console.log(isPalindrome("A man, a plan, a canal, Panama")); // Output: true
+
+function customPromiseAll(promises) {
+    return new Promise((resolve, reject) => {
+        let results = [];
+        let completedPromises = 0;
+
+        promises.forEach((promise, index) => {
+            Promise.resolve(promise)
+                .then(result => {
+                    results[index] = result;
+                    completedPromises += 1;
+                    if (completedPromises === promises.length) {
+                        resolve(results);
+                    }
+                })
+                .catch(error => reject(error));
+        });
+    });
+}
