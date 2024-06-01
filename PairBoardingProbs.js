@@ -163,3 +163,19 @@ class LRUCache {
         this.cache.set(key, value);
     }
 }
+
+function deepClone(obj, hash = new WeakMap()) {
+    if (Object(obj) !== obj) return obj;
+    if (hash.has(obj)) return hash.get(obj);
+
+    const result = Array.isArray(obj) ? [] : obj.constructor ? new obj.constructor() : Object.create(null);
+    hash.set(obj, result);
+
+    if (obj instanceof Map) {
+        obj.forEach((value, key) => result.set(key, deepClone(value, hash)));
+    }
+
+    return Object.assign(result, ...Object.keys(obj).map(
+        key => ({ [key]: deepClone(obj[key], hash) })
+    ));
+}
