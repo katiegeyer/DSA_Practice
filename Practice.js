@@ -1055,3 +1055,196 @@ function merge(intervals) {
 
 // Example usage
 console.log(merge([[1, 3], [2, 6], [8, 10], [15, 18]])); // Output: [[1, 6], [8, 10], [15, 18]]
+
+class MedianFinder {
+    constructor() {
+        this.low = new MaxHeap();
+        this.high = new MinHeap();
+    }
+
+    addNum(num) {
+        if (this.low.size() === 0 || num < this.low.peek()) {
+            this.low.insert(num);
+        } else {
+            this.high.insert(num);
+        }
+
+        if (this.low.size() > this.high.size() + 1) {
+            this.high.insert(this.low.extractMax());
+        } else if (this.high.size() > this.low.size()) {
+            this.low.insert(this.high.extractMin());
+        }
+    }
+
+    findMedian() {
+        if (this.low.size() > this.high.size()) {
+            return this.low.peek();
+        } else {
+            return (this.low.peek() + this.high.peek()) / 2;
+        }
+    }
+}
+
+class MaxHeap {
+    constructor() {
+        this.heap = [];
+    }
+
+    size() {
+        return this.heap.length;
+    }
+
+    peek() {
+        return this.heap[0];
+    }
+
+    insert(val) {
+        this.heap.push(val);
+        this._heapifyUp();
+    }
+
+    extractMax() {
+        const max = this.heap[0];
+        const end = this.heap.pop();
+        if (this.size() > 0) {
+            this.heap[0] = end;
+            this._heapifyDown();
+        }
+        return max;
+    }
+
+    _heapifyUp() {
+        let idx = this.size() - 1;
+        const element = this.heap[idx];
+
+        while (idx > 0) {
+            const parentIdx = Math.floor((idx - 1) / 2);
+            const parent = this.heap[parentIdx];
+
+            if (element <= parent) break;
+
+            this.heap[idx] = parent;
+            this.heap[parentIdx] = element;
+            idx = parentIdx;
+        }
+    }
+
+    _heapifyDown() {
+        let idx = 0;
+        const length = this.size();
+        const element = this.heap[idx];
+
+        while (true) {
+            const leftChildIdx = 2 * idx + 1;
+            const rightChildIdx = 2 * idx + 2;
+            let leftChild, rightChild;
+            let swap = null;
+
+            if (leftChildIdx < length) {
+                leftChild = this.heap[leftChildIdx];
+                if (leftChild > element) {
+                    swap = leftChildIdx;
+                }
+            }
+
+            if (rightChildIdx < length) {
+                rightChild = this.heap[rightChildIdx];
+                if ((swap === null && rightChild > element) || (swap !== null && rightChild > leftChild)) {
+                    swap = rightChildIdx;
+                }
+            }
+
+            if (swap === null) break;
+
+            this.heap[idx] = this.heap[swap];
+            this.heap[swap] = element;
+            idx = swap;
+        }
+    }
+}
+
+class MinHeap {
+    constructor() {
+        this.heap = [];
+    }
+
+    size() {
+        return this.heap.length;
+    }
+
+    peek() {
+        return this.heap[0];
+    }
+
+    insert(val) {
+        this.heap.push(val);
+        this._heapifyUp();
+    }
+
+    extractMin() {
+        const min = this.heap[0];
+        const end = this.heap.pop();
+        if (this.size() > 0) {
+            this.heap[0] = end;
+            this._heapifyDown();
+        }
+        return min;
+    }
+
+    _heapifyUp() {
+        let idx = this.size() - 1;
+        const element = this.heap[idx];
+
+        while (idx > 0) {
+            const parentIdx = Math.floor((idx - 1) / 2);
+            const parent = this.heap[parentIdx];
+
+            if (element >= parent) break;
+
+            this.heap[idx] = parent;
+            this.heap[parentIdx] = element;
+            idx = parentIdx;
+        }
+    }
+
+    _heapifyDown() {
+        let idx = 0;
+        const length = this.size();
+        const element = this.heap[idx];
+
+        while (true) {
+            const leftChildIdx = 2 * idx + 1;
+            const rightChildIdx = 2 * idx + 2;
+            let leftChild, rightChild;
+            let swap = null;
+
+            if (leftChildIdx < length) {
+                leftChild = this.heap[leftChildIdx];
+                if (leftChild < element) {
+                    swap = leftChildIdx;
+                }
+            }
+
+            if (rightChildIdx < length) {
+                rightChild = this.heap[rightChildIdx];
+                if ((swap === null && rightChild < element) || (swap !== null && rightChild < leftChild)) {
+                    swap = rightChildIdx;
+                }
+            }
+
+            if (swap === null) break;
+
+            this.heap[idx] = this.heap[swap];
+            this.heap[swap] = element;
+            idx = swap;
+        }
+    }
+}
+
+// Example usage
+const mf = new MedianFinder();
+mf.addNum(1);
+mf.addNum(2);
+console.log(mf.findMedian()); // Output: 1.5
+mf.addNum(3);
+console.log(mf.findMedian()); // Output: 2
