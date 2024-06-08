@@ -1467,3 +1467,21 @@ def reverse_string(s):
 
 # Test
 print(reverse_string("hello"))  # Output: "olleh"
+
+
+def length_of_longest_substring(s):
+    char_map = {}
+    max_len = 0
+    start = 0
+
+    for end, char in enumerate(s):
+        if char in char_map and char_map[char] >= start:
+            start = char_map[char] + 1
+        char_map[char] = end
+        max_len = max(max_len, end - start + 1)
+
+    return max_len
+
+
+# Example usage
+print(length_of_longest_substring("abcabcbb"))  # Output: 3
