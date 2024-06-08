@@ -1485,3 +1485,22 @@ def length_of_longest_substring(s):
 
 # Example usage
 print(length_of_longest_substring("abcabcbb"))  # Output: 3
+
+
+def is_valid(s):
+    stack = []
+    paren_map = {')': '(', '}': '{', ']': '['}
+
+    for char in s:
+        if char in paren_map:
+            top_element = stack.pop() if stack else '#'
+            if paren_map[char] != top_element:
+                return False
+        else:
+            stack.append(char)
+    return not stack
+
+
+# Example usage
+print(is_valid("()[]{}"))  # Output: True
+print(is_valid("(]"))  # Output: False
