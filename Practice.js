@@ -988,3 +988,22 @@ function twoSum(nums, target) {
 
 // Example usage
 console.log(twoSum([2, 7, 11, 15], 9)); // Output: [0, 1]
+
+function lengthOfLongestSubstring(s) {
+    let maxLen = 0;
+    let start = 0;
+    const map = new Map();
+
+    for (let end = 0; end < s.length; end++) {
+        if (map.has(s[end])) {
+            start = Math.max(map.get(s[end]) + 1, start);
+        }
+        map.set(s[end], end);
+        maxLen = Math.max(maxLen, end - start + 1);
+    }
+
+    return maxLen;
+}
+
+// Example usage
+console.log(lengthOfLongestSubstring("abcabcbb")); // Output: 3
