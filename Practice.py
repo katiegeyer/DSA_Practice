@@ -1526,3 +1526,22 @@ def merge(intervals):
 # Example usage
 # Output: [[1, 6], [8, 10], [15, 18]]
 print(merge([[1, 3], [2, 6], [8, 10], [15, 18]]))
+
+
+def lengthOfLongestSubstring(s: str) -> int:
+    char_map = {}
+    left = 0
+    max_length = 0
+
+    for right in range(len(s)):
+        if s[right] in char_map:
+            left = max(left, char_map[s[right]] + 1)
+        char_map[s[right]] = right
+        max_length = max(max_length, right - left + 1)
+
+    return max_length
+
+
+# Example usage:
+print(lengthOfLongestSubstring("abcabcbb"))  # Output: 3
+print(lengthOfLongestSubstring("bbbbb"))  # Output: 1
