@@ -1248,3 +1248,29 @@ mf.addNum(2);
 console.log(mf.findMedian()); // Output: 1.5
 mf.addNum(3);
 console.log(mf.findMedian()); // Output: 2
+
+function isValid(s) {
+    const stack = [];
+    const map = {
+        '(': ')',
+        '{': '}',
+        '[': ']'
+    };
+
+    for (let i = 0; i < s.length; i++) {
+        if (map[s[i]]) {
+            stack.push(map[s[i]]);
+        } else if (stack.length > 0 && stack[stack.length - 1] === s[i]) {
+            stack.pop();
+        } else {
+            return false;
+        }
+    }
+
+    return stack.length === 0;
+}
+
+// Example usage:
+console.log(isValid("()")); // Output: true
+console.log(isValid("()[]{}")); // Output: true
+console.log(isValid("(]")); // Output: false
