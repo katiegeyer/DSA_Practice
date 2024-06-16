@@ -1303,3 +1303,23 @@ function mergeTwoLists(l1, l2) {
 const list1 = new ListNode(1, new ListNode(2, new ListNode(4)));
 const list2 = new ListNode(1, new ListNode(3, new ListNode(4)));
 console.log(mergeTwoLists(list1, list2)); // Output: [1, 1, 2, 3, 4, 4]
+
+function lengthOfLongestSubstring(s) {
+    const charMap = new Map();
+    let left = 0;
+    let maxLength = 0;
+
+    for (let right = 0; right < s.length; right++) {
+        if (charMap.has(s[right])) {
+            left = Math.max(left, charMap.get(s[right]) + 1);
+        }
+        charMap.set(s[right], right);
+        maxLength = Math.max(maxLength, right - left + 1);
+    }
+
+    return maxLength;
+}
+
+// Example usage:
+console.log(lengthOfLongestSubstring("abcabcbb")); // Output: 3
+console.log(lengthOfLongestSubstring("bbbbb")); // Output: 1
