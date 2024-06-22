@@ -1763,3 +1763,57 @@ class StockMonitor:
 
 monitor = StockMonitor('AAPL', 150)
 monitor.start_monitoring()
+
+class Room:
+    def __init__(self, name, description, items=None):
+        self.name = name
+        self.description = description
+        self.items = items if items else []
+        self.connected_rooms = {}
+
+    def connect_room(self, room, direction):
+        self.connected_rooms[direction] = room
+
+    def get_room_in_direction(self, direction):
+        return self.connected_rooms.get(direction)
+
+class AdventureGame:
+    def __init__(self):
+        self.rooms = self.create_rooms()
+        self.current_room = self.rooms['entrance']
+
+    def create_rooms(self):
+        entrance = Room('Entrance', 'You are at the entrance of a dark cave.')
+        hall = Room('Hall', 'You are in a large hall with torches on the walls.')
+        treasure_room = Room('Treasure Room', 'You found the treasure room!', ['gold', 'jewels'])
+        
+        entrance.connect_room(hall, 'north')
+        hall.connect_room(entrance, 'south')
+        hall.connect_room(treasure_room, 'east')
+        treasure_room.connect_room(hall, 'west')
+        
+        return {'entrance': entrance, 'hall': hall, 'treasure_room': treasure_room}
+
+    def move(self, direction):
+        next_room = self.current_room.get_room_in_direction(direction)
+        if next_room:
+            self.current_room = next_room
+            print(f"You moved to the {self.current_room.name}.")
+            print(self.current_room.description)
+        else:
+            print("You can't go that way.")
+
+    def play(self):
+        while True:
+            command = input("Enter a command: ").strip().lower()
+            if command in ['north', 'south', 'east', 'west']:
+                self.move(command)
+            elif command == 'quit':
+                print("Thanks for playing!")
+                break
+            else:
+                print("Unknown command.")
+
+game = AdventureGame()
+game.play()
+
