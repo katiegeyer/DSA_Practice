@@ -1618,3 +1618,53 @@ print(merge([[1, 3], [2, 6], [8, 10], [15, 18]]))
 # Output: [[1,6],[8,10],[15,18]]
 print(merge([[1, 4], [4, 5]]))
 # Output: [[1,5]]
+
+import random
+import numpy as np
+
+class GeneticAlgorithmTSP:
+    def __init__(self, cities, population_size, mutation_rate, generations):
+        self.cities = cities
+        self.population_size = population_size
+        self.mutation_rate = mutation_rate
+        self.generations = generations
+        self.population = self.initialize_population()
+
+    def initialize_population(self):
+        population = []
+        for _ in range(self.population_size):
+            route = random.sample(self.cities, len(self.cities))
+            population.append(route)
+        return population
+
+    def fitness(self, route):
+        return sum(np.linalg.norm(np.array(route[i]) - np.array(route[i+1])) for i in range(len(route)-1))
+
+    def selection(self):
+        sorted_population = sorted(self.population, key=self.fitness)
+        return sorted_population[:self.population_size//2]
+
+    def crossover(self, parent1, parent2):
+        crossover_point = random.randint(0, len(parent1)-1)
+        child = parent1[:crossover_point] + [city for city in parent2 if city not in parent1[:crossover_point]]
+        return child
+
+    def mutate(self, route):
+        if random.random() < self.mutation_rate:
+            i, j = random.sample(range(len(route)), 2)
+            route[i], route[j] = route[j], route[i]
+        return route
+
+    def evolve(self):
+        for _ in range(self.generations):
+            new_population = []
+            selected = self.selection()
+            for i in range(0, len(selected), 2):
+                parent1, parent2 = selected[i], selected[i+1]
+                child1 = self.mutate(self.crossover(parent1, parent2))
+                child2 = self.mutate(self.crossover(parent2, parent1))
+                new_population.extend([child1, child2])
+            self.population = new_population
+
+    def get_best_route(self):
+        return min(self.population, key=self.fitness)
