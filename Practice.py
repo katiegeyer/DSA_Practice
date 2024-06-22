@@ -1668,3 +1668,33 @@ class GeneticAlgorithmTSP:
 
     def get_best_route(self):
         return min(self.population, key=self.fitness)
+
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.metrics.pairwise import cosine_similarity
+from scipy.sparse import csr_matrix
+
+class MusicRecommender:
+    def __init__(self, data):
+        self.data = data
+        self.user_song_matrix = self.create_user_song_matrix()
+
+    def create_user_song_matrix(self):
+        return self.data.pivot(index='user_id', columns='song_id', values='listen_count').fillna(0)
+
+    def calculate_similarity(self):
+        user_song_sparse = csr_matrix(self.user_song_matrix.values)
+        return cosine_similarity(user_song_sparse)
+
+    def recommend_songs(self, user_id, top_n=5):
+        user_index = self.user_song_matrix.index.get_loc(user_id)
+        similarity_matrix = self.calculate_similarity()
+        user_similarity_scores = similarity_matrix[user_index]
+        song_listens = self.user_song_matrix.values[user_index]
+        scores = user_similarity_scores.dot(self.user_song_matrix.values) / np.array([np.abs(user_similarity_scores).sum()])
+        song_recommendations = list(self.user_song_matrix.columns[np.argsort(scores)[::-1]])
+        return [song for song in song_recommendations if song_listens[song] == 0][:top_n]
+
+data = pd.read_csv('user_song_data.csv')
+recommender = MusicRecommender(data)
+print(recommender.recommend_songs(user_id=1))
