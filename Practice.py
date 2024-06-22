@@ -1733,3 +1733,33 @@ class FaceFilter:
 
 face_filter = FaceFilter('path/to/your/image.jpg', 'cartoon')
 face_filter.process_image()
+
+import requests
+import schedule
+import time
+
+class StockMonitor:
+    def __init__(self, stock_symbol, threshold):
+        self.stock_symbol = stock_symbol
+        self.threshold = threshold
+        self.api_url = f'https://api.example.com/stocks/{self.stock_symbol}'
+
+    def get_stock_price(self):
+        response = requests.get(self.api_url)
+        data = response.json()
+        return data['price']
+
+    def check_price(self):
+        price = self.get_stock_price()
+        print(f"Current price of {self.stock_symbol}: {price}")
+        if price > self.threshold:
+            print(f"Alert: {self.stock_symbol} price crossed the threshold of {self.threshold}")
+
+    def start_monitoring(self, interval=1):
+        schedule.every(interval).minutes.do(self.check_price)
+        while True:
+            schedule.run_pending()
+            time.sleep(1)
+
+monitor = StockMonitor('AAPL', 150)
+monitor.start_monitoring()
