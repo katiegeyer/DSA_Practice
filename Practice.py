@@ -1698,3 +1698,38 @@ class MusicRecommender:
 data = pd.read_csv('user_song_data.csv')
 recommender = MusicRecommender(data)
 print(recommender.recommend_songs(user_id=1))
+
+import cv2
+
+class FaceFilter:
+    def __init__(self, image_path, filter_type):
+        self.image_path = image_path
+        self.filter_type = filter_type
+        self.face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
+
+    def apply_filter(self, face):
+        if self.filter_type == 'blur':
+            return cv2.GaussianBlur(face, (99, 99), 30)
+        elif self.filter_type == 'cartoon':
+            gray = cv2.cvtColor(face, cv2.COLOR_BGR2GRAY)
+            gray = cv2.medianBlur(gray, 7)
+            edges = cv2.adaptiveThreshold(gray, 255, cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY, 9, 10)
+            color = cv2.bilateralFilter(face, 9, 300, 300)
+            return cv2.bitwise_and(color, color, mask=edges)
+        else:
+            return face
+
+    def process_image(self):
+        image = cv2.imread(self.image_path)
+        gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+        faces = self.face_cascade.detectMultiScale(gray, 1.1, 4)
+        for (x, y, w, h) in faces:
+            face = image[y:y+h, x:x+w]
+            filtered_face = self.apply_filter(face)
+            image[y:y+h, x:x+w] = filtered_face
+        cv2.imshow('Filtered Image', image)
+        cv2.waitKey(0)
+        cv2.destroyAllWindows()
+
+face_filter = FaceFilter('path/to/your/image.jpg', 'cartoon')
+face_filter.process_image()
