@@ -1386,4 +1386,4 @@ class GeneticAlgorithmTSP {
     }
 }
 
-const cities = [[0, 0], [
+con
