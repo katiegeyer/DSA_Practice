@@ -1497,3 +1497,76 @@ function findMedianSortedArrays(nums1, nums2) {
 // Test cases
 console.log(findMedianSortedArrays([1, 3], [2])); // Output: 2
 console.log(findMedianSortedArrays([1, 2], [3, 4])); // Output: 2.5
+
+class ListNode {
+    constructor(key, value) {
+        this.key = key;
+        this.value = value;
+        this.prev = null;
+        this.next = null;
+    }
+}
+
+class LRUCache {
+    constructor(capacity) {
+        this.capacity = capacity;
+        this.map = new Map();
+        this.head = new ListNode();
+        this.tail = new ListNode();
+        this.head.next = this.tail;
+        this.tail.prev = this.head;
+    }
+
+    get(key) {
+        if (!this.map.has(key)) return -1;
+
+        let node = this.map.get(key);
+        this._remove(node);
+        this._add(node);
+
+        return node.value;
+    }
+
+    put(key, value) {
+        if (this.map.has(key)) {
+            this._remove(this.map.get(key));
+        }
+
+        let node = new ListNode(key, value);
+        this._add(node);
+        this.map.set(key, node);
+
+        if (this.map.size > this.capacity) {
+            let lru = this.tail.prev;
+            this._remove(lru);
+            this.map.delete(lru.key);
+        }
+    }
+
+    _remove(node) {
+        let prev = node.prev;
+        let next = node.next;
+        prev.next = next;
+        next.prev = prev;
+    }
+
+    _add(node) {
+        let next = this.head.next;
+        this.head.next = node;
+        node.prev = this.head;
+        node.next = next;
+        next.prev = node;
+    }
+}
+
+// Test case
+let lruCache = new LRUCache(2);
+lruCache.put(1, 1);
+lruCache.put(2, 2);
+console.log(lruCache.get(1)); // Output: 1
+lruCache.put(3, 3); // LRU key was 2, evicts key 2
+console.log(lruCache.get(2)); // Output: -1
+lruCache.put(4, 4); // LRU key was 1, evicts key 1
+console.log(lruCache.get(1)); // Output: -1
+console.log(lruCache.get(3)); // Output: 3
+console.log(lruCache.get(4)); // Output: 4
