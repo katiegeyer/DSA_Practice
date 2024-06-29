@@ -1618,3 +1618,202 @@ print(merge([[1, 3], [2, 6], [8, 10], [15, 18]]))
 # Output: [[1,6],[8,10],[15,18]]
 print(merge([[1, 4], [4, 5]]))
 # Output: [[1,5]]
+
+import random
+import numpy as np
+
+class GeneticAlgorithmTSP:
+    def __init__(self, cities, population_size, mutation_rate, generations):
+        self.cities = cities
+        self.population_size = population_size
+        self.mutation_rate = mutation_rate
+        self.generations = generations
+        self.population = self.initialize_population()
+
+    def initialize_population(self):
+        population = []
+        for _ in range(self.population_size):
+            route = random.sample(self.cities, len(self.cities))
+            population.append(route)
+        return population
+
+    def fitness(self, route):
+        return sum(np.linalg.norm(np.array(route[i]) - np.array(route[i+1])) for i in range(len(route)-1))
+
+    def selection(self):
+        sorted_population = sorted(self.population, key=self.fitness)
+        return sorted_population[:self.population_size//2]
+
+    def crossover(self, parent1, parent2):
+        crossover_point = random.randint(0, len(parent1)-1)
+        child = parent1[:crossover_point] + [city for city in parent2 if city not in parent1[:crossover_point]]
+        return child
+
+    def mutate(self, route):
+        if random.random() < self.mutation_rate:
+            i, j = random.sample(range(len(route)), 2)
+            route[i], route[j] = route[j], route[i]
+        return route
+
+    def evolve(self):
+        for _ in range(self.generations):
+            new_population = []
+            selected = self.selection()
+            for i in range(0, len(selected), 2):
+                parent1, parent2 = selected[i], selected[i+1]
+                child1 = self.mutate(self.crossover(parent1, parent2))
+                child2 = self.mutate(self.crossover(parent2, parent1))
+                new_population.extend([child1, child2])
+            self.population = new_population
+
+    def get_best_route(self):
+        return min(self.population, key=self.fitness)
+
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.metrics.pairwise import cosine_similarity
+from scipy.sparse import csr_matrix
+
+class MusicRecommender:
+    def __init__(self, data):
+        self.data = data
+        self.user_song_matrix = self.create_user_song_matrix()
+
+    def create_user_song_matrix(self):
+        return self.data.pivot(index='user_id', columns='song_id', values='listen_count').fillna(0)
+
+    def calculate_similarity(self):
+        user_song_sparse = csr_matrix(self.user_song_matrix.values)
+        return cosine_similarity(user_song_sparse)
+
+    def recommend_songs(self, user_id, top_n=5):
+        user_index = self.user_song_matrix.index.get_loc(user_id)
+        similarity_matrix = self.calculate_similarity()
+        user_similarity_scores = similarity_matrix[user_index]
+        song_listens = self.user_song_matrix.values[user_index]
+        scores = user_similarity_scores.dot(self.user_song_matrix.values) / np.array([np.abs(user_similarity_scores).sum()])
+        song_recommendations = list(self.user_song_matrix.columns[np.argsort(scores)[::-1]])
+        return [song for song in song_recommendations if song_listens[song] == 0][:top_n]
+
+data = pd.read_csv('user_song_data.csv')
+recommender = MusicRecommender(data)
+print(recommender.recommend_songs(user_id=1))
+
+import cv2
+
+class FaceFilter:
+    def __init__(self, image_path, filter_type):
+        self.image_path = image_path
+        self.filter_type = filter_type
+        self.face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
+
+    def apply_filter(self, face):
+        if self.filter_type == 'blur':
+            return cv2.GaussianBlur(face, (99, 99), 30)
+        elif self.filter_type == 'cartoon':
+            gray = cv2.cvtColor(face, cv2.COLOR_BGR2GRAY)
+            gray = cv2.medianBlur(gray, 7)
+            edges = cv2.adaptiveThreshold(gray, 255, cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY, 9, 10)
+            color = cv2.bilateralFilter(face, 9, 300, 300)
+            return cv2.bitwise_and(color, color, mask=edges)
+        else:
+            return face
+
+    def process_image(self):
+        image = cv2.imread(self.image_path)
+        gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+        faces = self.face_cascade.detectMultiScale(gray, 1.1, 4)
+        for (x, y, w, h) in faces:
+            face = image[y:y+h, x:x+w]
+            filtered_face = self.apply_filter(face)
+            image[y:y+h, x:x+w] = filtered_face
+        cv2.imshow('Filtered Image', image)
+        cv2.waitKey(0)
+        cv2.destroyAllWindows()
+
+face_filter = FaceFilter('path/to/your/image.jpg', 'cartoon')
+face_filter.process_image()
+
+import requests
+import schedule
+import time
+
+class StockMonitor:
+    def __init__(self, stock_symbol, threshold):
+        self.stock_symbol = stock_symbol
+        self.threshold = threshold
+        self.api_url = f'https://api.example.com/stocks/{self.stock_symbol}'
+
+    def get_stock_price(self):
+        response = requests.get(self.api_url)
+        data = response.json()
+        return data['price']
+
+    def check_price(self):
+        price = self.get_stock_price()
+        print(f"Current price of {self.stock_symbol}: {price}")
+        if price > self.threshold:
+            print(f"Alert: {self.stock_symbol} price crossed the threshold of {self.threshold}")
+
+    def start_monitoring(self, interval=1):
+        schedule.every(interval).minutes.do(self.check_price)
+        while True:
+            schedule.run_pending()
+            time.sleep(1)
+
+monitor = StockMonitor('AAPL', 150)
+monitor.start_monitoring()
+
+class Room:
+    def __init__(self, name, description, items=None):
+        self.name = name
+        self.description = description
+        self.items = items if items else []
+        self.connected_rooms = {}
+
+    def connect_room(self, room, direction):
+        self.connected_rooms[direction] = room
+
+    def get_room_in_direction(self, direction):
+        return self.connected_rooms.get(direction)
+
+class AdventureGame:
+    def __init__(self):
+        self.rooms = self.create_rooms()
+        self.current_room = self.rooms['entrance']
+
+    def create_rooms(self):
+        entrance = Room('Entrance', 'You are at the entrance of a dark cave.')
+        hall = Room('Hall', 'You are in a large hall with torches on the walls.')
+        treasure_room = Room('Treasure Room', 'You found the treasure room!', ['gold', 'jewels'])
+        
+        entrance.connect_room(hall, 'north')
+        hall.connect_room(entrance, 'south')
+        hall.connect_room(treasure_room, 'east')
+        treasure_room.connect_room(hall, 'west')
+        
+        return {'entrance': entrance, 'hall': hall, 'treasure_room': treasure_room}
+
+    def move(self, direction):
+        next_room = self.current_room.get_room_in_direction(direction)
+        if next_room:
+            self.current_room = next_room
+            print(f"You moved to the {self.current_room.name}.")
+            print(self.current_room.description)
+        else:
+            print("You can't go that way.")
+
+    def play(self):
+        while True:
+            command = input("Enter a command: ").strip().lower()
+            if command in ['north', 'south', 'east', 'west']:
+                self.move(command)
+            elif command == 'quit':
+                print("Thanks for playing!")
+                break
+            else:
+                print("Unknown command.")
+
+game = AdventureGame()
+game.play()
+

@@ -1324,29 +1324,66 @@ function lengthOfLongestSubstring(s) {
 console.log(lengthOfLongestSubstring("abcabcbb")); // Output: 3
 console.log(lengthOfLongestSubstring("bbbbb")); // Output: 1
 
-function longestSubstringWithoutRepeatingCharacters(s) {
-    let left = 0;
-    let right = 0;
-    let maxLength = 0;
-    let charSet = new Set();
+class GeneticAlgorithmTSP {
+    constructor(cities, populationSize, mutationRate, generations) {
+        this.cities = cities;
+        this.populationSize = populationSize;
+        this.mutationRate = mutationRate;
+        this.generations = generations;
+        this.population = this.initializePopulation();
+    }
 
-    while (right < s.length) {
-        if (!charSet.has(s[right])) {
-            charSet.add(s[right]);
-            right++;
-            maxLength = Math.max(maxLength, right - left);
-        } else {
-            charSet.delete(s[left]);
-            left++;
+    initializePopulation() {
+        let population = [];
+        for (let i = 0; i < this.populationSize; i++) {
+            let route = [...this.cities].sort(() => Math.random() - 0.5);
+            population.push(route);
+        }
+        return population;
+    }
+
+    fitness(route) {
+        return route.reduce((acc, city, i) => {
+            if (i === route.length - 1) return acc;
+            return acc + Math.hypot(city[0] - route[i + 1][0], city[1] - route[i + 1][1]);
+        }, 0);
+    }
+
+    selection() {
+        return this.population.sort((a, b) => this.fitness(a) - this.fitness(b)).slice(0, this.populationSize / 2);
+    }
+
+    crossover(parent1, parent2) {
+        let crossoverPoint = Math.floor(Math.random() * parent1.length);
+        let child = parent1.slice(0, crossoverPoint).concat(parent2.filter(city => !parent1.slice(0, crossoverPoint).includes(city)));
+        return child;
+    }
+
+    mutate(route) {
+        if (Math.random() < this.mutationRate) {
+            let [i, j] = [Math.floor(Math.random() * route.length), Math.floor(Math.random() * route.length)];
+            [route[i], route[j]] = [route[j], route[i]];
+        }
+        return route;
+    }
+
+    evolve() {
+        for (let generation = 0; generation < this.generations; generation++) {
+            let newPopulation = [];
+            let selected = this.selection();
+            for (let i = 0; i < selected.length; i += 2) {
+                let parent1 = selected[i];
+                let parent2 = selected[i + 1];
+                newPopulation.push(this.mutate(this.crossover(parent1, parent2)));
+                newPopulation.push(this.mutate(this.crossover(parent2, parent1)));
+            }
+            this.population = newPopulation;
         }
     }
 
-    return maxLength;
+    getBestRoute() {
+        return this.population.reduce((best, route) => this.fitness(route) < this.fitness(best) ? route : best);
+    }
 }
 
-// Test cases
-console.log(longestSubstringWithoutRepeatingCharacters("abcabcbb")); // Output: 3
-console.log(longestSubstringWithoutRepeatingCharacters("bbbbb"));    // Output: 1
-console.log(longestSubstringWithoutRepeatingCharacters("pwwkew"));   // Output: 3
-console.log(longestSubstringWithoutRepeatingCharacters(""));         // Output: 0
-console.log(longestSubstringWithoutRepeatingCharacters("dvdf"));     // Output: 3
+const cities = [[0, 0], [
