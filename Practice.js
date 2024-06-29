@@ -1435,3 +1435,27 @@ function firstMissingPositive(nums) {
 console.log(firstMissingPositive([1, 2, 0]));    // Output: 3
 console.log(firstMissingPositive([3, 4, -1, 1])); // Output: 2
 console.log(firstMissingPositive([7, 8, 9, 11, 12])); // Output: 1
+
+function permute(nums) {
+    let results = [];
+
+    function backtrack(start) {
+        if (start === nums.length) {
+            results.push([...nums]);
+            return;
+        }
+
+        for (let i = start; i < nums.length; i++) {
+            [nums[start], nums[i]] = [nums[i], nums[start]];
+            backtrack(start + 1);
+            [nums[start], nums[i]] = [nums[i], nums[start]];
+        }
+    }
+
+    backtrack(0);
+    return results;
+}
+
+// Test case
+console.log(permute([1, 2, 3]));
+// Output: [[1,2,3],[1,3,2],[2,1,3],[2,3,1],[3,2,1],[3,1,2]]
