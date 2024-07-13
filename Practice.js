@@ -1638,3 +1638,31 @@ function letterCombinations(digits) {
 // Example usage:
 console.log(letterCombinations("23"));
 // Output: ["ad","ae","af","bd","be","bf","cd","ce","cf"]
+
+function longestPalindrome(s) {
+    if (s.length <= 1) return s;
+
+    let start = 0, maxLength = 1;
+
+    function expandAroundCenter(left, right) {
+        while (left >= 0 && right < s.length && s[left] === s[right]) {
+            if (right - left + 1 > maxLength) {
+                start = left;
+                maxLength = right - left + 1;
+            }
+            left--;
+            right++;
+        }
+    }
+
+    for (let i = 0; i < s.length; i++) {
+        expandAroundCenter(i, i); // Odd length
+        expandAroundCenter(i, i + 1); // Even length
+    }
+
+    return s.substring(start, start + maxLength);
+}
+
+// Example usage:
+console.log(longestPalindrome("babad")); // Output: "bab" or "aba"
+console.log(longestPalindrome("cbbd")); // Output: "bb"
