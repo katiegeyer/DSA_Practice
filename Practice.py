@@ -3,6 +3,14 @@
 #     def __init__(self, val=0, next=None):
 #         self.val = val
 #         self.next = next
+import pandas as pd
+import schedule
+import requests
+import cv2
+from scipy.sparse import csr_matrix
+from sklearn.metrics.pairwise import cosine_similarity
+from sklearn.model_selection import train_test_split
+import numpy as np
 import bisect
 import collections
 import heapq
@@ -1619,8 +1627,6 @@ print(merge([[1, 3], [2, 6], [8, 10], [15, 18]]))
 print(merge([[1, 4], [4, 5]]))
 # Output: [[1,5]]
 
-import random
-import numpy as np
 
 class GeneticAlgorithmTSP:
     def __init__(self, cities, population_size, mutation_rate, generations):
@@ -1646,7 +1652,8 @@ class GeneticAlgorithmTSP:
 
     def crossover(self, parent1, parent2):
         crossover_point = random.randint(0, len(parent1)-1)
-        child = parent1[:crossover_point] + [city for city in parent2 if city not in parent1[:crossover_point]]
+        child = parent1[:crossover_point] + \
+            [city for city in parent2 if city not in parent1[:crossover_point]]
         return child
 
     def mutate(self, route):
@@ -1669,10 +1676,6 @@ class GeneticAlgorithmTSP:
     def get_best_route(self):
         return min(self.population, key=self.fitness)
 
-import pandas as pd
-from sklearn.model_selection import train_test_split
-from sklearn.metrics.pairwise import cosine_similarity
-from scipy.sparse import csr_matrix
 
 class MusicRecommender:
     def __init__(self, data):
@@ -1691,21 +1694,24 @@ class MusicRecommender:
         similarity_matrix = self.calculate_similarity()
         user_similarity_scores = similarity_matrix[user_index]
         song_listens = self.user_song_matrix.values[user_index]
-        scores = user_similarity_scores.dot(self.user_song_matrix.values) / np.array([np.abs(user_similarity_scores).sum()])
-        song_recommendations = list(self.user_song_matrix.columns[np.argsort(scores)[::-1]])
+        scores = user_similarity_scores.dot(
+            self.user_song_matrix.values) / np.array([np.abs(user_similarity_scores).sum()])
+        song_recommendations = list(
+            self.user_song_matrix.columns[np.argsort(scores)[::-1]])
         return [song for song in song_recommendations if song_listens[song] == 0][:top_n]
+
 
 data = pd.read_csv('user_song_data.csv')
 recommender = MusicRecommender(data)
 print(recommender.recommend_songs(user_id=1))
 
-import cv2
 
 class FaceFilter:
     def __init__(self, image_path, filter_type):
         self.image_path = image_path
         self.filter_type = filter_type
-        self.face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
+        self.face_cascade = cv2.CascadeClassifier(
+            cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
 
     def apply_filter(self, face):
         if self.filter_type == 'blur':
@@ -1713,7 +1719,8 @@ class FaceFilter:
         elif self.filter_type == 'cartoon':
             gray = cv2.cvtColor(face, cv2.COLOR_BGR2GRAY)
             gray = cv2.medianBlur(gray, 7)
-            edges = cv2.adaptiveThreshold(gray, 255, cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY, 9, 10)
+            edges = cv2.adaptiveThreshold(
+                gray, 255, cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY, 9, 10)
             color = cv2.bilateralFilter(face, 9, 300, 300)
             return cv2.bitwise_and(color, color, mask=edges)
         else:
@@ -1731,12 +1738,10 @@ class FaceFilter:
         cv2.waitKey(0)
         cv2.destroyAllWindows()
 
+
 face_filter = FaceFilter('path/to/your/image.jpg', 'cartoon')
 face_filter.process_image()
 
-import requests
-import schedule
-import time
 
 class StockMonitor:
     def __init__(self, stock_symbol, threshold):
@@ -1753,7 +1758,8 @@ class StockMonitor:
         price = self.get_stock_price()
         print(f"Current price of {self.stock_symbol}: {price}")
         if price > self.threshold:
-            print(f"Alert: {self.stock_symbol} price crossed the threshold of {self.threshold}")
+            print(
+                f"Alert: {self.stock_symbol} price crossed the threshold of {self.threshold}")
 
     def start_monitoring(self, interval=1):
         schedule.every(interval).minutes.do(self.check_price)
@@ -1761,8 +1767,10 @@ class StockMonitor:
             schedule.run_pending()
             time.sleep(1)
 
+
 monitor = StockMonitor('AAPL', 150)
 monitor.start_monitoring()
+
 
 class Room:
     def __init__(self, name, description, items=None):
@@ -1777,6 +1785,7 @@ class Room:
     def get_room_in_direction(self, direction):
         return self.connected_rooms.get(direction)
 
+
 class AdventureGame:
     def __init__(self):
         self.rooms = self.create_rooms()
@@ -1784,8 +1793,10 @@ class AdventureGame:
 
     def create_rooms(self):
         entrance = Room('Entrance', 'You are at the entrance of a dark cave.')
-        hall = Room('Hall', 'You are in a large hall with torches on the walls.')
-        treasure_room = Room('Treasure Room', 'You found the treasure room!', ['gold', 'jewels'])
+        hall = Room(
+            'Hall', 'You are in a large hall with torches on the walls.')
+        treasure_room = Room(
+            'Treasure Room', 'You found the treasure room!', ['gold', 'jewels'])
 
         entrance.connect_room(hall, 'north')
         hall.connect_room(entrance, 'south')
@@ -1814,6 +1825,36 @@ class AdventureGame:
             else:
                 print("Unknown command.")
 
+
 game = AdventureGame()
 game.play()
 
+
+def letterCombinations(digits):
+    if not digits:
+        return []
+
+    phone_map = {
+        '2': 'abc', '3': 'def', '4': 'ghi', '5': 'jkl',
+        '6': 'mno', '7': 'pqrs', '8': 'tuv', '9': 'wxyz'
+    }
+
+    result = []
+
+    def backtrack(index, current):
+        if index == len(digits):
+            result.append(''.join(current))
+            return
+        letters = phone_map[digits[index]]
+        for letter in letters:
+            current.append(letter)
+            backtrack(index + 1, current)
+            current.pop()
+
+    backtrack(0, [])
+    return result
+
+
+# Example usage:
+print(letterCombinations("23"))
+# Output: ["ad","ae","af","bd","be","bf","cd","ce","cf"]
