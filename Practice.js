@@ -1666,3 +1666,21 @@ function longestPalindrome(s) {
 // Example usage:
 console.log(longestPalindrome("babad")); // Output: "bab" or "aba"
 console.log(longestPalindrome("cbbd")); // Output: "bb"
+
+function groupAnagrams(strs) {
+    const map = new Map();
+
+    for (let str of strs) {
+        const sorted = str.split('').sort().join('');
+        if (!map.has(sorted)) {
+            map.set(sorted, []);
+        }
+        map.get(sorted).push(str);
+    }
+
+    return Array.from(map.values());
+}
+
+// Example usage:
+console.log(groupAnagrams(["eat", "tea", "tan", "ate", "nat", "bat"]));
+// Output: [["eat","tea","ate"],["tan","nat"],["bat"]]
