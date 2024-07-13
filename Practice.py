@@ -1786,12 +1786,12 @@ class AdventureGame:
         entrance = Room('Entrance', 'You are at the entrance of a dark cave.')
         hall = Room('Hall', 'You are in a large hall with torches on the walls.')
         treasure_room = Room('Treasure Room', 'You found the treasure room!', ['gold', 'jewels'])
-        
+
         entrance.connect_room(hall, 'north')
         hall.connect_room(entrance, 'south')
         hall.connect_room(treasure_room, 'east')
         treasure_room.connect_room(hall, 'west')
-        
+
         return {'entrance': entrance, 'hall': hall, 'treasure_room': treasure_room}
 
     def move(self, direction):
