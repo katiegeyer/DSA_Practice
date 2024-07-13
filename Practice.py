@@ -1858,3 +1858,30 @@ def letterCombinations(digits):
 # Example usage:
 print(letterCombinations("23"))
 # Output: ["ad","ae","af","bd","be","bf","cd","ce","cf"]
+
+
+def longestPalindrome(s):
+    if len(s) <= 1:
+        return s
+
+    start, max_length = 0, 1
+
+    def expandAroundCenter(left, right):
+        nonlocal start, max_length
+        while left >= 0 and right < len(s) and s[left] == s[right]:
+            if right - left + 1 > max_length:
+                start = left
+                max_length = right - left + 1
+            left -= 1
+            right += 1
+
+    for i in range(len(s)):
+        expandAroundCenter(i, i)  # Odd length
+        expandAroundCenter(i, i + 1)  # Even length
+
+    return s[start:start + max_length]
+
+
+# Example usage:
+print(longestPalindrome("babad"))  # Output: "bab" or "aba"
+print(longestPalindrome("cbbd"))  # Output: "bb"
