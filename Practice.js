@@ -1606,3 +1606,35 @@ const board = [
 console.log(exist(board, "ABCCED")); // Output: true
 console.log(exist(board, "SEE")); // Output: true
 console.log(exist(board, "ABCB")); // Output: false
+
+function letterCombinations(digits) {
+    if (!digits) return [];
+
+    const map = {
+        '2': 'abc', '3': 'def', '4': 'ghi', '5': 'jkl',
+        '6': 'mno', '7': 'pqrs', '8': 'tuv', '9': 'wxyz'
+    };
+
+    const result = [];
+
+    function backtrack(index, current) {
+        if (index === digits.length) {
+            result.push(current.join(''));
+            return;
+        }
+
+        const letters = map[digits[index]];
+        for (let letter of letters) {
+            current.push(letter);
+            backtrack(index + 1, current);
+            current.pop();
+        }
+    }
+
+    backtrack(0, []);
+    return result;
+}
+
+// Example usage:
+console.log(letterCombinations("23"));
+// Output: ["ad","ae","af","bd","be","bf","cd","ce","cf"]
