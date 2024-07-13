@@ -1885,3 +1885,19 @@ def longestPalindrome(s):
 # Example usage:
 print(longestPalindrome("babad"))  # Output: "bab" or "aba"
 print(longestPalindrome("cbbd"))  # Output: "bb"
+
+
+def groupAnagrams(strs):
+    from collections import defaultdict
+    anagrams = defaultdict(list)
+
+    for s in strs:
+        sorted_str = ''.join(sorted(s))
+        anagrams[sorted_str].append(s)
+
+    return list(anagrams.values())
+
+
+# Example usage:
+print(groupAnagrams(["eat", "tea", "tan", "ate", "nat", "bat"]))
+# Output: [["eat","tea","ate"],["tan","nat"],["bat"]]
