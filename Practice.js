@@ -1886,3 +1886,28 @@ let l1 = new ListNode(1, new ListNode(2, new ListNode(4)));
 let l2 = new ListNode(1, new ListNode(3, new ListNode(4)));
 let merged = mergeTwoLists(l1, l2);
 // Output: 1 -> 1 -> 2 -> 3 -> 4 -> 4
+
+function isValid(s) {
+    const stack = [];
+    const map = {
+        '(': ')',
+        '{': '}',
+        '[': ']'
+    };
+
+    for (let char of s) {
+        if (map[char]) {
+            stack.push(map[char]);
+        } else if (stack.length > 0 && stack[stack.length - 1] === char) {
+            stack.pop();
+        } else {
+            return false;
+        }
+    }
+
+    return stack.length === 0;
+}
+
+// Example usage:
+console.log(isValid("()[]{}")); // Output: true
+console.log(isValid("(]"));     // Output: false
