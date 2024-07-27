@@ -2085,3 +2085,27 @@ def longest_common_subsequence(str1, str2):
 
 
 print(longest_common_subsequence("ABCBDAB", "BDCAB"))  # Output: 4
+
+
+class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
+
+
+def middle_node(head):
+    slow = fast = head
+
+    while fast and fast.next:
+        slow = slow.next
+        fast = fast.next.next
+
+    return slow
+
+
+# Example usage:
+# Input: 1 -> 2 -> 3 -> 4 -> 5
+# Output: 3 -> 4 -> 5
+head = ListNode(1, ListNode(2, ListNode(3, ListNode(4, ListNode(5)))))
+# Output: ListNode { val: 3, next: ListNode { val: 4, next: [ListNode] } }
+print(middle_node(head))
