@@ -2142,3 +2142,23 @@ l1 = ListNode(1, ListNode(2, ListNode(4)))
 l2 = ListNode(1, ListNode(3, ListNode(4)))
 merged = merge_two_lists(l1, l2)
 # Output: 1 -> 1 -> 2 -> 3 -> 4 -> 4
+
+
+def is_valid(s):
+    stack = []
+    mapping = {')': '(', '}': '{', ']': '['}
+
+    for char in s:
+        if char in mapping:
+            top_element = stack.pop() if stack else '#'
+            if mapping[char] != top_element:
+                return False
+        else:
+            stack.append(char)
+
+    return not stack
+
+
+# Example usage:
+print(is_valid("()[]{}"))  # Output: True
+print(is_valid("(]"))      # Output: False
