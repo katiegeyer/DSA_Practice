@@ -2162,3 +2162,17 @@ def is_valid(s):
 # Example usage:
 print(is_valid("()[]{}"))  # Output: True
 print(is_valid("(]"))      # Output: False
+
+
+def reverse_string(s):
+    left, right = 0, len(s) - 1
+    while left < right:
+        s[left], s[right] = s[right], s[left]
+        left += 1
+        right -= 1
+
+
+# Example usage:
+s = ['h', 'e', 'l', 'l', 'o']
+reverse_string(s)
+print(s)  # Output: ['o', 'l', 'l', 'e', 'h']
