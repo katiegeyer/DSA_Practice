@@ -1831,3 +1831,21 @@ console.log(trie.search("app"));     // Output: false
 console.log(trie.startsWith("app")); // Output: true
 trie.insert("app");
 console.log(trie.search("app"));     // Output: true
+
+function middleNode(head) {
+    let slow = head;
+    let fast = head;
+
+    while (fast !== null && fast.next !== null) {
+        slow = slow.next;
+        fast = fast.next.next;
+    }
+
+    return slow;
+}
+
+// Example usage:
+// Input: 1 -> 2 -> 3 -> 4 -> 5
+// Output: 3 -> 4 -> 5
+let head = new ListNode(1, new ListNode(2, new ListNode(3, new ListNode(4, new ListNode(5)))));
+console.log(middleNode(head)); // Output: ListNode { val: 3, next: ListNode { val: 4, next: [ListNode] } }
