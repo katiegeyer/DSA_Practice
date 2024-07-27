@@ -1849,3 +1849,40 @@ function middleNode(head) {
 // Output: 3 -> 4 -> 5
 let head = new ListNode(1, new ListNode(2, new ListNode(3, new ListNode(4, new ListNode(5)))));
 console.log(middleNode(head)); // Output: ListNode { val: 3, next: ListNode { val: 4, next: [ListNode] } }
+
+function ListNode(val, next) {
+    this.val = (val === undefined ? 0 : val);
+    this.next = (next === undefined ? null : next);
+}
+
+function mergeTwoLists(l1, l2) {
+    let dummy = new ListNode();
+    let current = dummy;
+
+    while (l1 !== null && l2 !== null) {
+        if (l1.val < l2.val) {
+            current.next = l1;
+            l1 = l1.next;
+        } else {
+            current.next = l2;
+            l2 = l2.next;
+        }
+        current = current.next;
+    }
+
+    if (l1 !== null) {
+        current.next = l1;
+    } else {
+        current.next = l2;
+    }
+
+    return dummy.next;
+}
+
+// Example usage:
+// l1: 1 -> 2 -> 4
+// l2: 1 -> 3 -> 4
+let l1 = new ListNode(1, new ListNode(2, new ListNode(4)));
+let l2 = new ListNode(1, new ListNode(3, new ListNode(4)));
+let merged = mergeTwoLists(l1, l2);
+// Output: 1 -> 1 -> 2 -> 3 -> 4 -> 4
