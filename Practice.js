@@ -1990,9 +1990,9 @@ function exist(board, word) {
         let tmp = board[i][j];
         board[i][j] = '/';
         let res = dfs(board, word, i + 1, j, k + 1) ||
-                  dfs(board, word, i - 1, j, k + 1) ||
-                  dfs(board, word, i, j + 1, k + 1) ||
-                  dfs(board, word, i, j - 1, k + 1);
+            dfs(board, word, i - 1, j, k + 1) ||
+            dfs(board, word, i, j + 1, k + 1) ||
+            dfs(board, word, i, j - 1, k + 1);
         board[i][j] = tmp;
         return res;
     }
@@ -2007,10 +2007,34 @@ function exist(board, word) {
 
 // Example usage:
 let board = [
-    ['A','B','C','E'],
-    ['S','F','C','S'],
-    ['A','D','E','E']
+    ['A', 'B', 'C', 'E'],
+    ['S', 'F', 'C', 'S'],
+    ['A', 'D', 'E', 'E']
 ];
 let word = "ABCCED";
 console.log(exist(board, word)); // Output: true
 
+function trap(height) {
+    if (!height.length) return 0;
+
+    let left = 0, right = height.length - 1;
+    let leftMax = height[left], rightMax = height[right];
+    let waterTrapped = 0;
+
+    while (left < right) {
+        if (leftMax < rightMax) {
+            left++;
+            leftMax = Math.max(leftMax, height[left]);
+            waterTrapped += leftMax - height[left];
+        } else {
+            right--;
+            rightMax = Math.max(rightMax, height[right]);
+            waterTrapped += rightMax - height[right];
+        }
+    }
+
+    return waterTrapped;
+}
+
+// Example usage:
+console.log(trap([0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1])); // Output: 6
