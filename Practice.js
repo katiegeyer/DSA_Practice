@@ -1911,3 +1911,33 @@ function isValid(s) {
 // Example usage:
 console.log(isValid("()[]{}")); // Output: true
 console.log(isValid("(]"));     // Output: false
+
+function longestPalindromicSubstring(s) {
+    if (!s) return "";
+
+    let start = 0, end = 0;
+
+    for (let i = 0; i < s.length; i++) {
+        let len1 = expandAroundCenter(s, i, i);
+        let len2 = expandAroundCenter(s, i, i + 1);
+        let maxLen = Math.max(len1, len2);
+        if (maxLen > end - start) {
+            start = i - Math.floor((maxLen - 1) / 2);
+            end = i + Math.floor(maxLen / 2);
+        }
+    }
+
+    return s.substring(start, end + 1);
+}
+
+function expandAroundCenter(s, left, right) {
+    while (left >= 0 && right < s.length && s[left] === s[right]) {
+        left--;
+        right++;
+    }
+    return right - left - 1;
+}
+
+// Example usage:
+console.log(longestPalindromicSubstring("babad")); // Output: "bab" or "aba"
+
