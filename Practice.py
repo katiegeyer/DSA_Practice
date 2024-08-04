@@ -2246,3 +2246,20 @@ def trap(height: List[int]) -> int:
 
 # Example usage:
 print(trap([0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1]))  # Output: 6
+
+
+def find_min(nums: List[int]) -> int:
+    left, right = 0, len(nums) - 1
+
+    while left < right:
+        mid = (left + right) // 2
+        if nums[mid] > nums[right]:
+            left = mid + 1
+        else:
+            right = mid
+
+    return nums[left]
+
+
+# Example usage:
+print(find_min([3, 4, 5, 1, 2]))  # Output: 1
