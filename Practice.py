@@ -3,6 +3,7 @@
 #     def __init__(self, val=0, next=None):
 #         self.val = val
 #         self.next = next
+from collections import OrderedDict
 import pandas as pd
 import schedule
 import requests
@@ -2263,3 +2264,32 @@ def find_min(nums: List[int]) -> int:
 
 # Example usage:
 print(find_min([3, 4, 5, 1, 2]))  # Output: 1
+
+
+class LRUCache:
+    def __init__(self, capacity: int):
+        self.cache = OrderedDict()
+        self.capacity = capacity
+
+    def get(self, key: int) -> int:
+        if key not in self.cache:
+            return -1
+        else:
+            self.cache.move_to_end(key)
+            return self.cache[key]
+
+    def put(self, key: int, value: int) -> None:
+        if key in self.cache:
+            self.cache.move_to_end(key)
+        self.cache[key] = value
+        if len(self.cache) > self.capacity:
+            self.cache.popitem(last=False)
+
+
+# Example usage:
+lru_cache = LRUCache(2)
+lru_cache.put(1, 1)
+lru_cache.put(2, 2)
+print(lru_cache.get(1))  # Output: 1
+lru_cache.put(3, 3)
+print(lru_cache.get(2))  # Output: -1 (as 2 was evicted)
