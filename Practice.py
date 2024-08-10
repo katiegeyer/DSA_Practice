@@ -2293,3 +2293,21 @@ lru_cache.put(2, 2)
 print(lru_cache.get(1))  # Output: 1
 lru_cache.put(3, 3)
 print(lru_cache.get(2))  # Output: -1 (as 2 was evicted)
+
+
+def permute(s):
+    def backtrack(path, options):
+        if not options:
+            res.append(path)
+            return
+        for i in range(len(options)):
+            backtrack(path + options[i], options[:i] + options[i+1:])
+
+    res = []
+    backtrack("", s)
+    return res
+
+
+# Example usage:
+s = "abc"
+print(permute(s))  # Output: ['abc', 'acb', 'bac', 'bca', 'cab', 'cba']
