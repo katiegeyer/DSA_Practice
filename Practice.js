@@ -2038,3 +2038,51 @@ function trap(height) {
 
 // Example usage:
 console.log(trap([0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1])); // Output: 6
+
+function minWindow(s, t) {
+    if (!s || !t) return "";
+
+    const dictT = {};
+    for (let char of t) {
+        dictT[char] = (dictT[char] || 0) + 1;
+    }
+    let required = Object.keys(dictT).length;
+
+    let l = 0, r = 0;
+    let formed = 0;
+    const windowCounts = {};
+    let ans = [-1, 0, 0];
+
+    while (r < s.length) {
+        let char = s[r];
+        windowCounts[char] = (windowCounts[char] || 0) + 1;
+
+        if (char in dictT && windowCounts[char] === dictT[char]) {
+            formed++;
+        }
+
+        while (l <= r && formed === required) {
+            char = s[l];
+
+            if (ans[0] === -1 || r - l + 1 < ans[0]) {
+                ans = [r - l + 1, l, r];
+            }
+
+            windowCounts[char]--;
+            if (char in dictT && windowCounts[char] < dictT[char]) {
+                formed--;
+            }
+
+            l++;
+        }
+
+        r++;
+    }
+
+    return ans[0] === -1 ? "" : s.slice(ans[1], ans[2] + 1);
+}
+
+// Example usage:
+const s = "ADOBECODEBANC";
+const t = "ABC";
+console.log(minWindow(s, t));  // Output: "BANC"
