@@ -2312,6 +2312,7 @@ def permute(s):
 s = "abc"
 print(permute(s))  # Output: ['abc', 'acb', 'bac', 'bca', 'cab', 'cba']
 
+
 def num_islands(grid):
     if not grid:
         return 0
@@ -2334,11 +2335,30 @@ def num_islands(grid):
 
     return count
 
+
 # Example usage:
 grid = [
-  ["1","1","1","1","0"],
-  ["1","1","0","1","0"],
-  ["1","1","0","0","0"],
-  ["0","0","0","0","0"]
+    ["1", "1", "1", "1", "0"],
+    ["1", "1", "0", "1", "0"],
+    ["1", "1", "0", "0", "0"],
+    ["0", "0", "0", "0", "0"]
 ]
 print(num_islands(grid))  # Output: 1
+
+
+def max_ones_after_flip(arr):
+    total_ones = sum(arr)
+    max_diff = 0
+    current_diff = 0
+
+    for i in range(len(arr)):
+        value = 1 if arr[i] == 0 else -1
+        current_diff = max(value, current_diff + value)
+        max_diff = max(max_diff, current_diff)
+
+    return total_ones + max_diff
+
+
+# Example usage:
+arr = [1, 0, 0, 1, 0, 1, 0, 1, 0, 1]
+print(max_ones_after_flip(arr))  # Output: 8
