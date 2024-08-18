@@ -246,3 +246,23 @@ function primeChecker() {
 const checkPrime = primeChecker();
 console.log(checkPrime(11)); // Output: true
 console.log(checkPrime(11)); // Output: true (faster due to memoization)
+
+function permute(str) {
+    if (str.length <= 1) {
+        return [str];
+    }
+
+    const permutations = [];
+    for (let i = 0; i < str.length; i++) {
+        const char = str[i];
+        const remainingStr = str.slice(0, i) + str.slice(i + 1);
+        for (let subPermutation of permute(remainingStr)) {
+            permutations.push(char + subPermutation);
+        }
+    }
+
+    return permutations;
+}
+
+// Example usage
+console.log(permute("abc")); // Output: ["abc", "acb", "bac", "bca", "cab", "cba"]
