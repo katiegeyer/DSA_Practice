@@ -316,3 +316,23 @@ function firstNonRepeatingChar(str) {
 
 // Example usage
 console.log(firstNonRepeatingChar("swiss")); // Output: "w"
+
+function lengthOfLongestSubstring(s) {
+    let map = new Map();
+    let maxLen = 0;
+    let start = 0;
+
+    for (let i = 0; i < s.length; i++) {
+        if (map.has(s[i])) {
+            start = Math.max(map.get(s[i]) + 1, start);
+        }
+        map.set(s[i], i);
+        maxLen = Math.max(maxLen, i - start + 1);
+    }
+
+    return maxLen;
+}
+
+// Example usage
+console.log(lengthOfLongestSubstring("abcabcbb")); // Output: 3 ("abc")
+console.log(lengthOfLongestSubstring("bbbbb"));    // Output: 1 ("b")
