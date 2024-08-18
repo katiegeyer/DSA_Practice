@@ -219,3 +219,30 @@ class EventEmitter {
         }
     }
 }
+
+function isPrime(num) {
+    if (num < 2) return false;
+    for (let i = 2; i <= Math.sqrt(num); i++) {
+        if (num % i === 0) return false;
+    }
+    return true;
+}
+
+function primeChecker() {
+    const cache = {};
+
+    return function(num) {
+        if (cache[num] !== undefined) {
+            return cache[num];
+        }
+
+        const result = isPrime(num);
+        cache[num] = result;
+        return result;
+    };
+}
+
+// Example usage
+const checkPrime = primeChecker();
+console.log(checkPrime(11)); // Output: true
+console.log(checkPrime(11)); // Output: true (faster due to memoization)
