@@ -266,3 +266,23 @@ function permute(str) {
 
 // Example usage
 console.log(permute("abc")); // Output: ["abc", "acb", "bac", "bca", "cab", "cba"]
+
+function debounce(func, delay) {
+    let timeoutId;
+
+    return function(...args) {
+        if (timeoutId) {
+            clearTimeout(timeoutId);
+        }
+        timeoutId = setTimeout(() => {
+            func.apply(this, args);
+        }, delay);
+    };
+}
+
+// Example usage
+const log = () => console.log('Debounced function called');
+const debouncedLog = debounce(log, 1000);
+debouncedLog();
+debouncedLog();
+debouncedLog(); // "Debounced function called" will only be logged once after 1 second
