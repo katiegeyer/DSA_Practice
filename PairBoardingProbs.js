@@ -295,3 +295,24 @@ function flattenArray(arr) {
 
 // Example usage
 console.log(flattenArray([1, [2, [3, [4]], 5]])); // Output: [1, 2, 3, 4, 5]
+
+function firstNonRepeatingChar(str) {
+    const charCount = {};
+
+    // Count each character in the string
+    for (let char of str) {
+        charCount[char] = (charCount[char] || 0) + 1;
+    }
+
+    // Find the first character with a count of 1
+    for (let char of str) {
+        if (charCount[char] === 1) {
+            return char;
+        }
+    }
+
+    return null;
+}
+
+// Example usage
+console.log(firstNonRepeatingChar("swiss")); // Output: "w"
