@@ -286,3 +286,12 @@ const debouncedLog = debounce(log, 1000);
 debouncedLog();
 debouncedLog();
 debouncedLog(); // "Debounced function called" will only be logged once after 1 second
+
+function flattenArray(arr) {
+    return arr.reduce((flat, toFlatten) => {
+        return flat.concat(Array.isArray(toFlatten) ? flattenArray(toFlatten) : toFlatten);
+    }, []);
+}
+
+// Example usage
+console.log(flattenArray([1, [2, [3, [4]], 5]])); // Output: [1, 2, 3, 4, 5]
