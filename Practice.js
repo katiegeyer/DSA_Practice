@@ -2086,3 +2086,10 @@ function minWindow(s, t) {
 const s = "ADOBECODEBANC";
 const t = "ABC";
 console.log(minWindow(s, t));  // Output: "BANC"
+
+function reverseString(str) {
+    return str.split('').reverse().join('');
+}
+
+// Example usage:
+console.log(reverseString("hello")); // "olleh"
