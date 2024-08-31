@@ -2095,3 +2095,9 @@ function findMissingNumber(arr) {
 }
 
 console.log(findMissingNumber([0, 1, 3, 4, 5])); // Output: 2
+
+function flattenArray(arr) {
+    return arr.reduce((flat, toFlatten) => flat.concat(Array.isArray(toFlatten) ? flattenArray(toFlatten) : toFlatten), []);
+}
+
+console.log(flattenArray([1, [2, [3, [4, 5]]], 6])); // Output: [1, 2, 3, 4, 5, 6]
