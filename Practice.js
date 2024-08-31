@@ -2146,3 +2146,10 @@ function findLargest(arr) {
 }
 
 console.log(findLargest([1, 5, 3, 9, 2])); // Output: 9
+
+function isPalindrome(str) {
+    const reversed = str.split('').reverse().join('');
+    return str === reversed;
+}
+
+console.log(isPalindrome("racecar")); // Output: true
