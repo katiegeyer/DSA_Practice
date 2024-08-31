@@ -219,3 +219,152 @@ class EventEmitter {
         }
     }
 }
+
+function isPrime(num) {
+    if (num < 2) return false;
+    for (let i = 2; i <= Math.sqrt(num); i++) {
+        if (num % i === 0) return false;
+    }
+    return true;
+}
+
+function primeChecker() {
+    const cache = {};
+
+    return function(num) {
+        if (cache[num] !== undefined) {
+            return cache[num];
+        }
+
+        const result = isPrime(num);
+        cache[num] = result;
+        return result;
+    };
+}
+
+// Example usage
+const checkPrime = primeChecker();
+console.log(checkPrime(11)); // Output: true
+console.log(checkPrime(11)); // Output: true (faster due to memoization)
+
+function permute(str) {
+    if (str.length <= 1) {
+        return [str];
+    }
+
+    const permutations = [];
+    for (let i = 0; i < str.length; i++) {
+        const char = str[i];
+        const remainingStr = str.slice(0, i) + str.slice(i + 1);
+        for (let subPermutation of permute(remainingStr)) {
+            permutations.push(char + subPermutation);
+        }
+    }
+
+    return permutations;
+}
+
+// Example usage
+console.log(permute("abc")); // Output: ["abc", "acb", "bac", "bca", "cab", "cba"]
+
+function debounce(func, delay) {
+    let timeoutId;
+
+    return function(...args) {
+        if (timeoutId) {
+            clearTimeout(timeoutId);
+        }
+        timeoutId = setTimeout(() => {
+            func.apply(this, args);
+        }, delay);
+    };
+}
+
+// Example usage
+const log = () => console.log('Debounced function called');
+const debouncedLog = debounce(log, 1000);
+debouncedLog();
+debouncedLog();
+debouncedLog(); // "Debounced function called" will only be logged once after 1 second
+
+function flattenArray(arr) {
+    return arr.reduce((flat, toFlatten) => {
+        return flat.concat(Array.isArray(toFlatten) ? flattenArray(toFlatten) : toFlatten);
+    }, []);
+}
+
+// Example usage
+console.log(flattenArray([1, [2, [3, [4]], 5]])); // Output: [1, 2, 3, 4, 5]
+
+function firstNonRepeatingChar(str) {
+    const charCount = {};
+
+    // Count each character in the string
+    for (let char of str) {
+        charCount[char] = (charCount[char] || 0) + 1;
+    }
+
+    // Find the first character with a count of 1
+    for (let char of str) {
+        if (charCount[char] === 1) {
+            return char;
+        }
+    }
+
+    return null;
+}
+
+// Example usage
+console.log(firstNonRepeatingChar("swiss")); // Output: "w"
+
+function lengthOfLongestSubstring(s) {
+    let map = new Map();
+    let maxLen = 0;
+    let start = 0;
+
+    for (let i = 0; i < s.length; i++) {
+        if (map.has(s[i])) {
+            start = Math.max(map.get(s[i]) + 1, start);
+        }
+        map.set(s[i], i);
+        maxLen = Math.max(maxLen, i - start + 1);
+    }
+
+    return maxLen;
+}
+
+// Example usage
+console.log(lengthOfLongestSubstring("abcabcbb")); // Output: 3 ("abc")
+console.log(lengthOfLongestSubstring("bbbbb"));    // Output: 1 ("b")
+
+function intToRoman(num) {
+    const romanMap = [
+        [1000, 'M'],
+        [900, 'CM'],
+        [500, 'D'],
+        [400, 'CD'],
+        [100, 'C'],
+        [90, 'XC'],
+        [50, 'L'],
+        [40, 'XL'],
+        [10, 'X'],
+        [9, 'IX'],
+        [5, 'V'],
+        [4, 'IV'],
+        [1, 'I']
+    ];
+
+    let result = '';
+    
+    for (let [value, symbol] of romanMap) {
+        while (num >= value) {
+            result += symbol;
+            num -= value;
+        }
+    }
+
+    return result;
+}
+
+// Example usage
+console.log(intToRoman(1987)); // Output: "MCMLXXXVII"
