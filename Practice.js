@@ -2086,3 +2086,12 @@ function minWindow(s, t) {
 const s = "ADOBECODEBANC";
 const t = "ABC";
 console.log(minWindow(s, t));  // Output: "BANC"
+
+function findMissingNumber(arr) {
+    const n = arr.length;
+    const total = (n * (n + 1)) / 2;
+    const sum = arr.reduce((acc, num) => acc + num, 0);
+    return total - sum;
+}
+
+console.log(findMissingNumber([0, 1, 3, 4, 5])); // Output: 2
