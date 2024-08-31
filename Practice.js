@@ -2140,3 +2140,9 @@ function binarySearch(arr, target) {
 }
 
 console.log(binarySearch([1, 3, 5, 7, 9], 5)); // Output: 2
+
+function findLargest(arr) {
+    return Math.max(...arr);
+}
+
+console.log(findLargest([1, 5, 3, 9, 2])); // Output: 9
