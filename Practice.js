@@ -2166,3 +2166,11 @@ function reverseString(str) {
 }
 
 console.log(reverseString("hello")); // Output: "olleh"
+
+function isPalindrome(str) {
+    const sanitizedStr = str.toLowerCase().replace(/[^a-z0-9]/g, '');
+    return sanitizedStr === sanitizedStr.split('').reverse().join('');
+}
+
+// Example
+console.log(isPalindrome("A man, a plan, a canal: Panama")); // true
