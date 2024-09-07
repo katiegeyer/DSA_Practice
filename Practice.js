@@ -2193,3 +2193,10 @@ function areAnagrams(str1, str2) {
 
 // Example
 console.log(areAnagrams('listen', 'silent')); // true
+
+function flattenArray(arr) {
+    return arr.reduce((flat, toFlatten) => flat.concat(Array.isArray(toFlatten) ? flattenArray(toFlatten) : toFlatten), []);
+}
+
+// Example
+console.log(flattenArray([1, [2, [3, 4], 5], [6, 7]])); // [1, 2, 3, 4, 5, 6, 7]
