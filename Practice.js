@@ -2200,3 +2200,11 @@ function flattenArray(arr) {
 
 // Example
 console.log(flattenArray([1, [2, [3, 4], 5], [6, 7]])); // [1, 2, 3, 4, 5, 6, 7]
+
+function longestWord(sentence) {
+    const words = sentence.split(' ');
+    return words.reduce((longest, currentWord) => currentWord.length > longest.length ? currentWord : longest, '');
+}
+
+// Example
+console.log(longestWord("The quick brown fox jumps over the lazy dog")); // "jumps"
