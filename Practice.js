@@ -2174,3 +2174,14 @@ function isPalindrome(str) {
 
 // Example
 console.log(isPalindrome("A man, a plan, a canal: Panama")); // true
+
+function fibonacci(n) {
+    const fib = [0, 1];
+    for (let i = 2; i <= n; i++) {
+        fib[i] = fib[i - 1] + fib[i - 2];
+    }
+    return fib.slice(1); // Exclude the initial zero for a cleaner output
+}
+
+// Example
+console.log(fibonacci(10)); // [1, 1, 2, 3, 5, 8, 13, 21, 34, 55]
