@@ -2208,3 +2208,10 @@ function longestWord(sentence) {
 
 // Example
 console.log(longestWord("The quick brown fox jumps over the lazy dog")); // "jumps"
+
+function removeDuplicates(arr) {
+    return [...new Set(arr)];
+}
+
+// Example
+console.log(removeDuplicates([1, 2, 2, 3, 4, 4, 5])); // [1, 2, 3, 4, 5]
