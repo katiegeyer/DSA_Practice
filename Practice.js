@@ -2231,3 +2231,16 @@ function binarySearch(arr, target) {
 
 // Example
 console.log(binarySearch([1, 2, 3, 4, 5, 6, 7], 5)); // 4
+
+function hasUniqueChars(str) {
+    const charSet = new Set();
+    for (let char of str) {
+        if (charSet.has(char)) return false;
+        charSet.add(char);
+    }
+    return true;
+}
+
+// Example
+console.log(hasUniqueChars("abcdef")); // true
+console.log(hasUniqueChars("aabbcc")); // false
