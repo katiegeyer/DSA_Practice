@@ -2244,3 +2244,11 @@ function hasUniqueChars(str) {
 // Example
 console.log(hasUniqueChars("abcdef")); // true
 console.log(hasUniqueChars("aabbcc")); // false
+
+function rotateArray(arr, k) {
+    k = k % arr.length;
+    return arr.slice(-k).concat(arr.slice(0, -k));
+}
+
+// Example
+console.log(rotateArray([1, 2, 3, 4, 5], 2)); // [4, 5, 1, 2, 3]
