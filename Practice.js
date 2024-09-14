@@ -2416,3 +2416,13 @@ function maxSubArray(nums) {
 }
 
 console.log(maxSubArray([-2, 1, -3, 4, -1, 2, 1, -5, 4])); // Output: 6
+
+function reverseString(str) {
+    let reversed = '';
+    for (let char of str) {
+        reversed = char + reversed;
+    }
+    return reversed;
+}
+
+console.log(reverseString("hello")); // Output: "olleh"
