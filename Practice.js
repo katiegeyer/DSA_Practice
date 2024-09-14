@@ -2343,3 +2343,19 @@ lru.set(2, 2);
 console.log(lru.get(1)); // Output: 1
 lru.set(3, 3);
 console.log(lru.get(2)); // Output: -1
+
+function flatten(arr) {
+    let flatArray = [];
+
+    arr.forEach(item => {
+        if (Array.isArray(item)) {
+            flatArray = flatArray.concat(flatten(item));
+        } else {
+            flatArray.push(item);
+        }
+    });
+
+    return flatArray;
+}
+
+console.log(flatten([1, [2, [3, [4]], 5]])); // Output: [1, 2, 3, 4, 5]
