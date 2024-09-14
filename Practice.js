@@ -2252,3 +2252,38 @@ function rotateArray(arr, k) {
 
 // Example
 console.log(rotateArray([1, 2, 3, 4, 5], 2)); // [4, 5, 1, 2, 3]
+
+function numIslands(grid) {
+    if (!grid.length) return 0;
+
+    let count = 0;
+
+    function dfs(i, j) {
+        if (i < 0 || j < 0 || i >= grid.length || j >= grid[0].length || grid[i][j] === '0') return;
+        grid[i][j] = '0'; // mark as visited
+        dfs(i + 1, j);
+        dfs(i - 1, j);
+        dfs(i, j + 1);
+        dfs(i, j - 1);
+    }
+
+    for (let i = 0; i < grid.length; i++) {
+        for (let j = 0; j < grid[0].length; j++) {
+            if (grid[i][j] === '1') {
+                count++;
+                dfs(i, j);
+            }
+        }
+    }
+
+    return count;
+}
+
+const grid = [
+    ['1', '1', '0', '0', '0'],
+    ['1', '1', '0', '0', '0'],
+    ['0', '0', '1', '0', '0'],
+    ['0', '0', '0', '1', '1']
+];
+
+console.log(numIslands(grid)); // Output: 3
