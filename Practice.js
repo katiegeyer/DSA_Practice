@@ -2295,3 +2295,20 @@ function fizzBuzz(n) {
 }
 
 console.log(fizzBuzz(15)); // Output: [1, 2, "Fizz", 4, "Buzz", "Fizz", 7, 8, "Fizz", "Buzz", 11, "Fizz", 13, 14, "FizzBuzz"]
+
+function findDuplicates(nums) {
+    const seen = new Set();
+    const duplicates = new Set();
+
+    for (let num of nums) {
+        if (seen.has(num)) {
+            duplicates.add(num);
+        } else {
+            seen.add(num);
+        }
+    }
+
+    return [...duplicates];
+}
+
+console.log(findDuplicates([1, 2, 3, 4, 3, 2, 1])); // Output: [3, 2, 1]
