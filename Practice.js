@@ -2312,3 +2312,34 @@ function findDuplicates(nums) {
 }
 
 console.log(findDuplicates([1, 2, 3, 4, 3, 2, 1])); // Output: [3, 2, 1]
+
+class LRUCache {
+    constructor(limit) {
+        this.cache = new Map();
+        this.limit = limit;
+    }
+
+    get(key) {
+        if (!this.cache.has(key)) return -1;
+        const value = this.cache.get(key);
+        this.cache.delete(key);
+        this.cache.set(key, value);
+        return value;
+    }
+
+    set(key, value) {
+        if (this.cache.has(key)) {
+            this.cache.delete(key);
+        } else if (this.cache.size === this.limit) {
+            this.cache.delete(this.cache.keys().next().value);
+        }
+        this.cache.set(key, value);
+    }
+}
+
+const lru = new LRUCache(2);
+lru.set(1, 1);
+lru.set(2, 2);
+console.log(lru.get(1)); // Output: 1
+lru.set(3, 3);
+console.log(lru.get(2)); // Output: -1
