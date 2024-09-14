@@ -2287,3 +2287,11 @@ const grid = [
 ];
 
 console.log(numIslands(grid)); // Output: 3
+
+function fizzBuzz(n) {
+    return Array.from({ length: n }, (_, i) =>
+        (i % 3 ? "" : "Fizz") + (i % 5 ? "" : "Buzz") || i + 1
+    );
+}
+
+console.log(fizzBuzz(15)); // Output: [1, 2, "Fizz", 4, "Buzz", "Fizz", 7, 8, "Fizz", "Buzz", 11, "Fizz", 13, 14, "FizzBuzz"]
