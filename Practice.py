@@ -2432,3 +2432,16 @@ def length_of_longest_substring(s):
         char_map[char] = right
         max_length = max(max_length, right - left + 1)
     return max_length
+
+
+def is_valid(s):
+    stack = []
+    parens = {')': '(', ']': '[', '}': '{'}
+    for char in s:
+        if char in parens:
+            top_element = stack.pop() if stack else '#'
+            if top_element != parens[char]:
+                return False
+        else:
+            stack.append(char)
+    return not stack
