@@ -2407,6 +2407,7 @@ s = "ADOBECODEBANC"
 t = "ABC"
 print(min_window(s, t))  # Output: "BANC"
 
+
 def two_sum(nums, target):
     seen = {}
     for i, num in enumerate(nums):
@@ -2415,3 +2416,8 @@ def two_sum(nums, target):
             return [seen[complement], i]
         seen[num] = i
     return []
+
+
+def is_palindrome(x):
+    s = str(x)
+    return s == s[::-1]
