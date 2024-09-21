@@ -2464,3 +2464,12 @@ def max_sub_array(nums):
         current_sum = max(num, current_sum + num)
         max_sum = max(max_sum, current_sum)
     return max_sum
+
+
+def climb_stairs(n):
+    if n <= 2:
+        return n
+    a, b = 1, 2
+    for _ in range(3, n+1):
+        a, b = b, a + b
+    return b
