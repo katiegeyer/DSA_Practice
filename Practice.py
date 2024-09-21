@@ -2406,3 +2406,12 @@ def min_window(s: str, t: str) -> str:
 s = "ADOBECODEBANC"
 t = "ABC"
 print(min_window(s, t))  # Output: "BANC"
+
+def two_sum(nums, target):
+    seen = {}
+    for i, num in enumerate(nums):
+        complement = target - num
+        if complement in seen:
+            return [seen[complement], i]
+        seen[num] = i
+    return []
