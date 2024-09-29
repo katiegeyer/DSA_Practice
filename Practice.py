@@ -2536,3 +2536,11 @@ def reverse_words(sentence):
 
 
 print(reverse_words("Hello World"))
+
+
+def convert_to_grayscale(image_path, output_path):
+    img = Image.open(image_path).convert('L')
+    img.save(output_path)
+
+
+convert_to_grayscale('color_image.jpg', 'grayscale_image.jpg')
