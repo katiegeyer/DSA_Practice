@@ -2492,3 +2492,10 @@ def search(nums, target):
             else:
                 right = mid - 1
     return -1
+
+
+def mask_data(data):
+    return '*' * (len(data) - 4) + data[-4:]
+
+
+print(mask_data("1234567812345678"))  # Output: ************5678
