@@ -2529,3 +2529,10 @@ def has_unique_characters(s):
 
 print(has_unique_characters("abcdef"))
 print(has_unique_characters("hello"))
+
+
+def reverse_words(sentence):
+    return ' '.join(word[::-1] for word in sentence.split())
+
+
+print(reverse_words("Hello World"))
