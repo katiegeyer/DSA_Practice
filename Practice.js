@@ -2433,3 +2433,10 @@ function reverseString(str) {
 
 // Example
 console.log(reverseString('hello')); // Output: 'olleh'
+
+function findMax(arr) {
+    return Math.max(...arr);
+}
+
+// Example
+console.log(findMax([1, 5, 3, 9, 2])); // Output: 9
