@@ -2464,3 +2464,10 @@ function fibonacci(n) {
 
 // Example
 console.log(fibonacci(6)); // Output: 8
+
+function removeDuplicates(arr) {
+    return [...new Set(arr)];
+}
+
+// Example
+console.log(removeDuplicates([1, 2, 3, 3, 4, 5, 5])); // Output: [1, 2, 3, 4, 5]
