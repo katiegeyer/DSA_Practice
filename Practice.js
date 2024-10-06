@@ -2456,3 +2456,11 @@ function factorial(num) {
 
 // Example
 console.log(factorial(5)); // Output: 120
+
+function fibonacci(n) {
+    if (n <= 1) return n;
+    return fibonacci(n - 1) + fibonacci(n - 2);
+}
+
+// Example
+console.log(fibonacci(6)); // Output: 8
