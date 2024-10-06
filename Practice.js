@@ -2487,3 +2487,10 @@ function secondLargest(arr) {
 
 // Example
 console.log(secondLargest([10, 5, 8, 12, 7])); // Output: 10
+
+function removeDuplicates(arr) {
+    return [...new Set(arr)];
+}
+
+// Example
+console.log(removeDuplicates([1, 2, 3, 3, 4, 5, 5])); // Output: [1, 2, 3, 4, 5]
