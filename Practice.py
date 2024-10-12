@@ -3,6 +3,7 @@
 #     def __init__(self, val=0, next=None):
 #         self.val = val
 #         self.next = next
+from scipy.ndimage import gaussian_filter
 from collections import deque
 from collections import Counter
 from collections import OrderedDict
@@ -2743,3 +2744,18 @@ def justify_text(words, max_width):
 # Example usage:
 words = ["This", "is", "an", "example", "of", "text", "justification."]
 print(justify_text(words, 16))
+
+
+def apply_gaussian_blur(image, sigma=1):
+    return gaussian_filter(image, sigma=sigma)
+
+
+# Example usage:
+image = np.array([
+    [255, 255, 255, 0],
+    [255, 0, 0, 0],
+    [255, 255, 255, 0],
+    [0, 0, 0, 0]
+])
+blurred_image = apply_gaussian_blur(image)
+print(blurred_image)
