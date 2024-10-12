@@ -2584,3 +2584,33 @@ def is_palindrome(word):
 
 
 print(is_palindrome("A man, a plan, a canal, Panama!"))
+
+
+def longest_common_subsequence(seq1, seq2):
+    dp = [[0] * (len(seq2) + 1) for _ in range(len(seq1) + 1)]
+
+    for i in range(1, len(seq1) + 1):
+        for j in range(1, len(seq2) + 1):
+            if seq1[i - 1] == seq2[j - 1]:
+                dp[i][j] = dp[i - 1][j - 1] + 1
+            else:
+                dp[i][j] = max(dp[i - 1][j], dp[i][j - 1])
+
+    i, j = len(seq1), len(seq2)
+    lcs = []
+
+    while i > 0 and j > 0:
+        if seq1[i - 1] == seq2[j - 1]:
+            lcs.append(seq1[i - 1])
+            i -= 1
+            j -= 1
+        elif dp[i - 1][j] > dp[i][j - 1]:
+            i -= 1
+        else:
+            j -= 1
+
+    return ''.join(reversed(lcs))
+
+
+# Example usage:
+print(longest_common_subsequence("AGGTAB", "GXTXAYB"))  # Output: "GTAB"
