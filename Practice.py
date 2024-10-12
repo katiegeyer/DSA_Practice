@@ -2724,3 +2724,22 @@ sudoku_board = [
 ]
 solve_sudoku(sudoku_board)
 print(sudoku_board)
+
+
+def justify_text(words, max_width):
+    res, line, num_of_letters = [], [], 0
+    for word in words:
+        if num_of_letters + len(word) + len(line) > max_width:
+            for i in range(max_width - num_of_letters):
+                line[i % (len(line) - 1 or 1)] += ' '
+            res.append(''.join(line))
+            line, num_of_letters = [], 0
+        line.append(word)
+        num_of_letters += len(word)
+    res.append(' '.join(line).ljust(max_width))
+    return res
+
+
+# Example usage:
+words = ["This", "is", "an", "example", "of", "text", "justification."]
+print(justify_text(words, 16))
