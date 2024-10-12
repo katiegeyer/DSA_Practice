@@ -2647,3 +2647,43 @@ maze = [
 start = (0, 0)
 end = (3, 4)
 print(maze_solver(maze, start, end))  # Output: path to the end
+
+
+class Node:
+    def __init__(self, data):
+        self.data = data
+        self.next = None
+
+
+class CircularLinkedList:
+    def __init__(self):
+        self.head = None
+
+    def append(self, data):
+        new_node = Node(data)
+        if not self.head:
+            self.head = new_node
+            new_node.next = self.head
+        else:
+            temp = self.head
+            while temp.next != self.head:
+                temp = temp.next
+            temp.next = new_node
+            new_node.next = self.head
+
+    def has_cycle(self):
+        slow, fast = self.head, self.head
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next
+            if slow == fast:
+                return True
+        return False
+
+
+# Example usage:
+cll = CircularLinkedList()
+cll.append(1)
+cll.append(2)
+cll.append(3)
+print(cll.has_cycle())  # Output: True
