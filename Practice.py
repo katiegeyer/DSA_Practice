@@ -3,6 +3,7 @@
 #     def __init__(self, val=0, next=None):
 #         self.val = val
 #         self.next = next
+from collections import deque
 from collections import Counter
 from collections import OrderedDict
 import pandas as pd
@@ -2614,3 +2615,35 @@ def longest_common_subsequence(seq1, seq2):
 
 # Example usage:
 print(longest_common_subsequence("AGGTAB", "GXTXAYB"))  # Output: "GTAB"
+
+
+def maze_solver(maze, start, end):
+    directions = [(0, 1), (1, 0), (0, -1), (-1, 0)]
+    rows, cols = len(maze), len(maze[0])
+    queue = deque([(start, [start])])
+    visited = set()
+
+    while queue:
+        (x, y), path = queue.popleft()
+        if (x, y) == end:
+            return path
+        for dx, dy in directions:
+            nx, ny = x + dx, y + dy
+            if 0 <= nx < rows and 0 <= ny < cols and maze[nx][ny] == 0 and (nx, ny) not in visited:
+                visited.add((nx, ny))
+                queue.append(((nx, ny), path + [(nx, ny)]))
+
+    return None
+
+
+# Example maze and usage:
+maze = [
+    [0, 1, 0, 0, 0],
+    [0, 1, 0, 1, 0],
+    [0, 0, 0, 1, 0],
+    [1, 1, 0, 0, 0]
+]
+
+start = (0, 0)
+end = (3, 4)
+print(maze_solver(maze, start, end))  # Output: path to the end
