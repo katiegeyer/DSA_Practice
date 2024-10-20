@@ -2550,3 +2550,7 @@ function fizzBuzz() {
         console.log(output || i);
     }
 }
+
+function flattenArray(arr) {
+    return arr.flat(Infinity);
+}
