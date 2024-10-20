@@ -2558,3 +2558,8 @@ function flattenArray(arr) {
 function findLargest(arr) {
     return Math.max(...arr);
 }
+
+function isPalindrome(str) {
+    const cleanedStr = str.replace(/[^A-Za-z0-9]/g, '').toLowerCase();
+    return cleanedStr === cleanedStr.split('').reverse().join('');
+}
