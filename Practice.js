@@ -2554,3 +2554,7 @@ function fizzBuzz() {
 function flattenArray(arr) {
     return arr.flat(Infinity);
 }
+
+function findLargest(arr) {
+    return Math.max(...arr);
+}
